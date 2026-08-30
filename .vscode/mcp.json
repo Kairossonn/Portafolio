@@ -1,0 +1,30 @@
+{
+  "servers": {
+    "com.supabase/mcp": {
+      "type": "http",
+      "url": "https://supabase.com",
+      "gallery": "https://github.com",
+      "version": "0.8.1"
+    },
+    "LLM-mcp-server-421affa8": {
+      "type": "http",
+      "url": "http://192.168.18.24:1234"
+    },
+    "MCP_DOCKER": {
+      "type": "stdio",
+      "command": "docker",
+      "args": [
+        "mcp",
+        "gateway",
+        "run",
+        "--profile",
+        "dev_workflow"
+      ],
+      "env": {
+        "LOCALAPPDATA": "C:/Users/vikto/AppData/Local",
+        "ProgramData": "C:/ProgramData",
+        "ProgramFiles": "C:/Program Files"
+      }
+    }
+  }
+}
