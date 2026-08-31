@@ -3,14 +3,18 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Contacta con nosotros | Academia Conquer Blocks Crypto y Blockchain</title>
-  <meta name="description" content="Descubre y aprende todo lo relacionado con Desarrollo Web, Blockchain, Criptomonedas y Ciberseguridad en nuestra academia.">
+
+  <!-- Correccion de SEO  Title y Descripcion 30-08-2026-->
+  <title>Contacta con nosotros | Encuentranos en la Web | Agenda tu cita</title>
+  
+  <!-- Correccion de SEO  Descripcion 30-08-2026-->
+  <meta name="description" content="Agenda tu cita y realiza una entrevista personalizada con nosotros en la Academia, te asesoraremos y acompañaremos en tu proceso responderemos a tus preguntas y aclararemos tus dudas">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="icon" href="./assets/common/favicon.ico" sizes="any">
   <link rel="icon" href="./assets/common/icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./assets/common/icon.png">
-
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/style.css">
 
@@ -37,7 +41,6 @@
             <figcaption><strong>Conquer Blocks Crypto</strong></figcaption>
             </picture>
         </figure>
-      <br/>
       <nav> 
         <ul>
           <li><a href="index.html">Home</a></li>
@@ -49,7 +52,6 @@
           <li>Contacto</li>
         </ul>
       </nav>
-      <br/>
     <hr />
   </header>
         
@@ -58,33 +60,35 @@
     <p>Contacta con nosotros y haznos saber tus dudas y la información que necesitas</p>
     
     <section>
-      <h2>Formulario</h2>
-      <form action="post" enctype="multipart/form-data"></form>
-        <!-- Registro de nombre -->
+      <!-- Formulario de registro -->
+      <form method="post" enctype="multipart/form-data">
+        <!-- Campos del formulario Nombre completo -->
         <p>
           <label for="name">Nombre</label>
-          <input type="text" name="name" id="name">
+          <input type="text" name="name" id="name" required>
         </p>
         <!-- Registro de email -->
         <p>
           <label for="email">Email</label>
-          <input type="email" name="email" id="email">
+          <input type="email" name="email" id="email" required>
         </p>
         <!-- Registro de telefono -->
         <p>
           <label for="phone">Telefono</label>
-          <input type="tel" name="phone" id="phone">
+          <input type="tel" name="phone" id="phone" required>
         </p>
         <!-- Registro de comentarios -->
         <p>
           <label for="bio">Comentarios</label><br>
           <textarea name="bio" id="bio" cols="30" rows="5"></textarea>
         </p>
+
         <!-- Campos del formulario Enviar y Borrar -->
         <p>
           <button type="submit">Enviar</button>
           <input type="reset" value="Borrar formulario">
         </p>
+      
     </section>
      <hr />
       <!-- Información de contacto -->
