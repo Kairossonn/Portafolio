@@ -1,0 +1,2314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Envtech — Desarrollo web, consultoría tecnológica y automatizaciones para empresas y emprendedores." />
+  <title>Envtech — Tecnología que trabaja para ti</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* =========================================================
+       TOKENS — fuente de verdad visual
+    ========================================================= */
+    :root {
+      --bg:           #0A1628;
+      --surface:      #0D2137;
+      --surface-2:    #112844;
+      --accent:       #00C4FF;
+      --accent-dim:   rgba(0, 196, 255, 0.12);
+      --accent-glow:  rgba(0, 196, 255, 0.25);
+      --text:         #F8F9FA;
+      --text-muted:   #8B9AB0;
+      --text-dim:     #6B7280;
+      --success:      #10B981;
+      --error:        #EF4444;
+      --border:       rgba(255,255,255,0.08);
+      --border-accent: rgba(0, 196, 255, 0.3);
+
+      --font-display: 'Space Grotesk', sans-serif;
+      --font-body:    'Inter', sans-serif;
+
+      --radius-sm:  6px;
+      --radius-md:  12px;
+      --radius-lg:  20px;
+
+      --space-xs:   0.5rem;
+      --space-sm:   1rem;
+      --space-md:   1.5rem;
+      --space-lg:   2.5rem;
+      --space-xl:   4rem;
+      --space-2xl:  6rem;
+
+      --transition: 0.25s ease;
+      --header-h:   72px;
+    }
+
+    /* =========================================================
+       BASE RESET
+    ========================================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--header-h);
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 1rem;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    .container {
+      width: min(1200px, 100% - 2rem);
+      margin-inline: auto;
+    }
+
+    .section {
+      padding-block: var(--space-2xl);
+    }
+
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: var(--space-md);
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 520px;
+    }
+
+    /* =========================================================
+       BOTONES
+    ========================================================= */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all var(--transition);
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+    .btn-primary:hover {
+      background: #22d3f0;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px var(--accent-glow);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border-accent);
+    }
+    .btn-outline:hover {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* =========================================================
+       HEADER
+    ========================================================= */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-h);
+      z-index: 100;
+      background: rgba(10, 22, 40, 0.92);
+      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: background var(--transition);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .logo span { color: var(--accent); }
+
+    .nav-list {
+      display: flex;
+      align-items: center;
+      gap: var(--space-lg);
+    }
+
+    .nav-list a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+    .nav-list a:hover { color: var(--text); }
+
+    .nav-cta { display: flex; align-items: center; gap: var(--space-sm); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+    .hamburger[aria-expanded="true"] span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .hamburger[aria-expanded="true"] span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+    /* Mobile nav */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: var(--header-h);
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-md);
+      z-index: 99;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--border);
+      font-weight: 500;
+    }
+    .mobile-nav .btn { width: 100%; justify-content: center; margin-top: var(--space-xs); }
+
+    /* ==================================================    /* =========================================================
+              HERO — Opción C: persona + terminal fusionados
+    ========================================================= */
+    .hero {
+      padding-top: calc(var(--header-h) + var(--space-xl));
+      padding-bottom: var(--space-2xl);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0.2;
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 57% 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Badge */
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent-dim);
+      border: 1px solid var(--border-accent);
+      border-radius: 99px;
+      padding: 0.35rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: var(--space-md);
+    }
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    /* H1 */
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4.2vw, 3.1rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: var(--space-md);
+    }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 440px;
+      line-height: 1.7;
+      margin-bottom: var(--space-lg);
+    }
+    .hero-actions { display: flex; gap: var(--space-sm); flex-wrap: wrap; }
+
+    /* Columna derecha */
+    .hero-right { display: flex; flex-direction: column; gap: var(--space-md); }
+
+    /* Tarjeta persona */
+    .hero-persona {
+      position: relative;
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md) var(--space-md) var(--space-md) calc(110px + var(--space-md) + 1rem);
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      left: -10px; top: 50%;
+      transform: translateY(-50%);
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-photo {
+      position: absolute;
+      left: var(--space-md);
+      top: 50%; transform: translateY(-50%);
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2.5px solid var(--accent);
+      box-shadow: 0 0 0 5px var(--accent-dim), 0 8px 28px rgba(0,0,0,0.45);
+      z-index: 1;
+    }
+    .hero-persona-text { position: relative; z-index: 1; }
+    .hero-persona-name {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.2rem;
+    }
+    .hero-persona-role {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      line-height: 1.4;
+      margin-bottom: 0.55rem;
+    }
+    .hero-persona-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(16,185,129,0.12);
+      border: 1px solid rgba(16,185,129,0.35);
+      color: var(--success);
+      border-radius: 99px;
+      padding: 0.22rem 0.65rem;
+      font-size: 0.73rem;
+      font-weight: 600;
+      font-family: var(--font-display);
+    }
+    .badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--success);
+      animation: pulse 2s infinite;
+    }
+    /* Bracket corners */
+    .hc {
+      position: absolute;
+      width: 13px; height: 13px;
+      border-color: var(--accent);
+      border-style: solid;
+      opacity: 0.45;
+    }
+    .hc.tl { top:8px;  left:8px;  border-width:2px 0 0 2px; }
+    .hc.tr { top:8px;  right:8px; border-width:2px 2px 0 0; }
+    .hc.bl { bottom:8px; left:8px;  border-width:0 0 2px 2px; }
+    .hc.br { bottom:8px; right:8px; border-width:0 2px 2px 0; }
+
+    /* Terminal */
+    .terminal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+    }
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1rem;
+      background: rgba(255,255,255,0.04);
+      border-bottom: 1px solid var(--border);
+    }
+    .terminal-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .terminal-dot:nth-child(1){background:#FF5F56}
+    .terminal-dot:nth-child(2){background:#FFBD2E}
+    .terminal-dot:nth-child(3){background:#27C93F}
+    .terminal-label { margin-left:auto; font-size:0.72rem; color:var(--text-dim); font-family:monospace; }
+    .terminal-body {
+      padding: var(--space-sm) var(--space-md);
+      font-family: 'Courier New', monospace;
+      font-size: 0.82rem;
+      line-height: 1.85;
+    }
+    .t-prompt { color: var(--accent); }
+    .t-out    { color: #64d69e; }
+    .t-comment{ color: var(--text-dim); }
+    .t-cursor {
+      display: inline-block;
+      width: 8px; height: 1em;
+      background: var(--accent);
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-content { text-align: center; }
+      .hero-badge { margin-inline: auto; }
+      .hero-sub   { margin-inline: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-right { max-width: 460px; margin-inline: auto; width: 100%; }
+    }
+    @media (max-width: 480px) {
+      .hero-actions { flex-direction: column; }
+      .hero-actions .btn { justify-content: center; }
+      .hero-persona {
+        flex-direction: column;
+        padding: calc(100px + var(--space-sm)) var(--space-md) var(--space-md);
+        text-align: center;
+      }
+      .hero-photo { top: var(--space-md); left: 50%; transform: translateX(-50%); }
+      .hero-glow  { top: 0; left: 50%; transform: translateX(-50%); }
+    }
+
+
+    .hero-linkedin {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.5rem;
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: var(--font-display);
+      text-decoration: none;
+      opacity: 0.8;
+      transition: opacity var(--transition);
+    }
+    .hero-linkedin:hover { opacity: 1; }
+
+
+    /* =========================================================
+       TESTIMONIOS / RECOMENDACIONES
+    ========================================================= */
+    .testimonios { background: var(--bg); }
+
+    .testimonios-intro {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .testimonios-stats {
+      display: flex;
+      gap: var(--space-lg);
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Grid de tarjetas */
+    .testimonios-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+    }
+
+    .testimonio-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+      transition: border-color var(--transition), transform var(--transition);
+      position: relative;
+    }
+
+    .testimonio-card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-3px);
+    }
+
+    /* Comilla decorativa */
+    .testimonio-card::before {
+      content: '"';
+      position: absolute;
+      top: var(--space-sm);
+      right: var(--space-md);
+      font-family: var(--font-display);
+      font-size: 4rem;
+      line-height: 1;
+      color: var(--accent);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .testimonio-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      flex: 1;
+      font-style: italic;
+    }
+
+    .testimonio-autor {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding-top: var(--space-sm);
+      border-top: 1px solid var(--border);
+    }
+
+    .autor-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      border: 1.5px solid var(--border-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .autor-name {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .autor-role {
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      line-height: 1.3;
+    }
+
+    /* Tarjeta destacada (primera, más grande) */
+    .testimonio-card.featured {
+      grid-column: span 2;
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+      border-color: var(--border-accent);
+    }
+
+    .testimonio-card.featured .testimonio-text {
+      font-size: 0.95rem;
+    }
+
+    /* Bloque de validaciones LinkedIn */
+    .validaciones-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-md) var(--space-lg);
+    }
+
+    .validaciones-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: var(--space-md);
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+    }
+
+    .validaciones-title {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .validaciones-title svg { color: #0A66C2; }
+
+    .validaciones-link {
+      font-size: 0.78rem;
+      color: var(--accent);
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: opacity var(--transition);
+    }
+    .validaciones-link:hover { opacity: 0.7; }
+
+    .validaciones-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .val-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-family: var(--font-display);
+      font-weight: 600;
+      transition: border-color var(--transition), color var(--transition);
+    }
+
+    .val-tag:hover {
+      border-color: var(--border-accent);
+      color: var(--text);
+    }
+
+    .val-count {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border-radius: 99px;
+      padding: 0.05rem 0.4rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+      .testimonios-grid { grid-template-columns: 1fr 1fr; }
+      .testimonio-card.featured { grid-column: span 2; }
+    }
+
+    @media (max-width: 600px) {
+      .testimonios-grid { grid-template-columns: 1fr; }
+      .testimonio-card.featured { grid-column: span 1; }
+      .testimonios-intro { flex-direction: column; align-items: flex-start; }
+    }
+
+
+    /* =========================================================
+       PROYECTOS / GALERÍA
+    ========================================================= */
+    .proyectos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    .proyecto-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform var(--transition), border-color var(--transition);
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      font-family: inherit;
+      color: inherit;
+      padding: 0;
+    }
+    .proyecto-card:hover { transform: translateY(-4px); border-color: var(--border-accent); }
+    .proyecto-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    .proyecto-media {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      background: linear-gradient(135deg, var(--surface-2) 0%, var(--bg) 100%);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .proyecto-media-icon { font-size: 2.5rem; opacity: 0.35; }
+
+    .proyecto-placeholder-badge {
+      position: absolute; top: 0.75rem; right: 0.75rem;
+      background: rgba(0,196,255,0.15);
+      border: 1px solid var(--border-accent);
+      color: var(--accent);
+      font-size: 0.7rem; font-weight: 700;
+      font-family: var(--font-display);
+      padding: 0.25rem 0.65rem;
+      border-radius: 99px;
+      letter-spacing: 0.03em;
+    }
+
+    .proyecto-cat-badge {
+      position: absolute; top: 0.75rem; left: 0.75rem;
+      background: rgba(10,22,40,0.7);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      color: var(--text);
+      font-size: 0.68rem; font-weight: 600;
+      padding: 0.25rem 0.6rem;
+      border-radius: 99px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .video-play-icon {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.2rem; color: var(--accent); opacity: 0.8;
+    }
+
+    .proyecto-body { padding: var(--space-md); display: flex; flex-direction: column; gap: 0.4rem; flex: 1; }
+    .proyecto-title { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; }
+    .proyecto-desc  { color: var(--text-muted); font-size: 0.85rem; line-height: 1.55; flex: 1; }
+    .proyecto-link  { color: var(--accent); font-size: 0.82rem; font-weight: 600; font-family: var(--font-display); margin-top: 0.4rem; }
+
+    .proyecto-modal-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(10, 22, 40, 0.9);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      z-index: 250;
+      align-items: center; justify-content: center;
+      padding: var(--space-md);
+    }
+    .proyecto-modal-overlay.open { display: flex; }
+
+    .proyecto-modal {
+      background: var(--surface);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      max-width: 720px; width: 100%; max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .proyecto-modal-close {
+      position: absolute; top: var(--space-sm); right: var(--space-sm);
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(10,22,40,0.7);
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.3rem;
+      cursor: pointer;
+      z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition);
+    }
+    .proyecto-modal-close:hover { background: rgba(0,196,255,0.2); }
+
+    .proyecto-modal-media {
+      aspect-ratio: 16 / 9;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      overflow: hidden;
+    }
+    .proyecto-modal-media img, .proyecto-modal-media video { width: 100%; height: 100%; object-fit: cover; }
+    .proyecto-modal-media .proyecto-media-icon { font-size: 3.5rem; }
+
+    .proyecto-modal-thumbs { display: flex; gap: 0.5rem; padding: var(--space-sm) var(--space-md) 0; overflow-x: auto; }
+    .proyecto-thumb {
+      width: 56px; height: 56px; flex-shrink: 0;
+      border-radius: var(--radius-sm);
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; opacity: 0.5;
+      transition: opacity var(--transition), border-color var(--transition);
+    }
+    .proyecto-thumb.active, .proyecto-thumb:hover { opacity: 1; border-color: var(--accent); }
+
+    .proyecto-modal-body { padding: var(--space-lg); }
+    .proyecto-modal-cat {
+      display: inline-block; color: var(--accent);
+      font-size: 0.75rem; font-weight: 700;
+      font-family: var(--font-display);
+      text-transform: uppercase; letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+    }
+    .proyecto-modal-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; margin-bottom: var(--space-sm); }
+    .proyecto-modal-desc  { color: var(--text-muted); line-height: 1.7; margin-bottom: var(--space-md); }
+    .proyecto-tech-list   { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    @media (max-width: 900px) { .proyectos-grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 600px) { .proyectos-grid { grid-template-columns: 1fr; } }
+
+    /* =========================================================
+       SERVICIOS
+    ========================================================= */
+    .servicios-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg) var(--space-md);
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--transition), transform var(--transition);
+    }
+
+    /* Firma: línea cian que crece desde la izquierda al hover */
+    .card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.35s ease;
+    }
+    .card:hover::before { transform: scaleY(1); }
+    .card:hover {
+      border-color: var(--border-accent);
+      transform: translateY(-4px);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: var(--space-md);
+      display: block;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: var(--space-xs);
+    }
+
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    /* =========================================================
+       PARA QUIÉN
+    ========================================================= */
+    .para-quien { background: var(--surface); }
+
+    .audiencias-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    .audiencia-item {
+      text-align: center;
+      padding: var(--space-lg) var(--space-md);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+
+    .audiencia-icon {
+      font-size: 2.5rem;
+      display: block;
+      margin-bottom: var(--space-sm);
+    }
+
+    .audiencia-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: var(--space-xs);
+    }
+
+    .audiencia-desc {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    /* =========================================================
+       PROCESO
+    ========================================================= */
+    .pasos {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+      position: relative;
+    }
+
+    .pasos::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: calc(12.5% + 1.5rem);
+      right: calc(12.5% + 1.5rem);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border-accent), transparent);
+    }
+
+    .paso {
+      text-align: center;
+      position: relative;
+    }
+
+    .paso-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      border: 1.5px solid var(--border-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-md);
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--accent);
+    }
+
+    .paso-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      margin-bottom: var(--space-xs);
+    }
+
+    .paso-desc {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    /* =========================================================
+       POR QUÉ ENVTECH
+    ========================================================= */
+    .por-que { background: var(--surface); }
+
+    .diferenciadores {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    .diferenciador {
+      display: flex;
+      gap: var(--space-sm);
+      padding: var(--space-md);
+      background: var(--surface-2);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+
+    .diferenciador-check {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1.5px solid rgba(16, 185, 129, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      margin-top: 2px;
+    }
+
+    .diferenciador-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .diferenciador-desc {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+    }
+
+    /* =========================================================
+       CONTACTO
+    ========================================================= */
+
+    .contacto-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    .contacto-info h2 { margin-bottom: var(--space-sm); }
+
+    .contacto-info p {
+      color: var(--text-muted);
+      margin-bottom: var(--space-lg);
+    }
+
+    .contacto-features {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .contacto-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .contacto-feature span:first-child {
+      width: 20px;
+      text-align: center;
+      color: var(--accent);
+    }
+
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+    }
+
+    .form-group {
+      margin-bottom: var(--space-md);
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      font-family: var(--font-display);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      transition: border-color var(--transition);
+      outline: none;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-dim);
+    }
+
+    .form-group input.error,
+    .form-group textarea.error {
+      border-color: var(--error);
+    }
+
+    .form-group select option { background: var(--surface-2); }
+
+    .field-error {
+      display: none;
+      font-size: 0.8rem;
+      color: var(--error);
+      margin-top: 0.35rem;
+    }
+    .field-error.visible { display: block; }
+
+    .privacidad-aviso {
+      background: rgba(0, 196, 255, 0.06);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-sm);
+      padding: var(--space-sm);
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: var(--space-md);
+      line-height: 1.5;
+    }
+
+    .privacidad-aviso strong {
+      color: var(--accent);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .btn-submit {
+      width: 100%;
+      justify-content: center;
+      padding: 1rem;
+      font-size: 1rem;
+    }
+
+    .decorative-line {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0px;
+    }
+
+    .cajascontacto {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 15px;
+    }
+
+    /* =========================================================
+       MODAL DE CONFIRMACIÓN
+    ========================================================= */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 22, 40, 0.85);
+      -webkit-backdrop-filter: blur(6px);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-md);
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl) var(--space-lg);
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+    }
+
+    .modal-icon {
+      font-size: 3rem;
+      margin-bottom: var(--space-md);
+      display: block;
+    }
+
+    .modal h3 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: var(--space-sm);
+    }
+
+    .modal-code {
+      background: var(--bg);
+      border: 1.5px solid var(--border-accent);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1.5rem;
+      font-family: monospace;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin: var(--space-md) 0;
+      display: inline-block;
+    }
+
+    .modal-note {
+      color: var(--text-muted);
+      font-size: 0.88rem;
+      margin-bottom: var(--space-lg);
+      line-height: 1.6;
+    }
+
+    .modal-privacidad {
+      background: rgba(0,196,255,0.05);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-sm);
+      padding: var(--space-sm);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: var(--space-lg);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: var(--space-sm);
+      right: var(--space-sm);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.4rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      line-height: 1;
+      transition: color var(--transition);
+    }
+    .modal-close:hover { color: var(--text); }
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding-block: var(--space-lg);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--space-md);
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .footer-logo span { color: var(--accent); }
+
+    .footer-links {
+      display: flex;
+      gap: var(--space-lg);
+    }
+    .footer-links a {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      transition: color var(--transition);
+    }
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-linkedin {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      transition: color var(--transition);
+    }
+    .footer-linkedin:hover { color: #0A66C2; }
+
+    .footer-copy {
+      font-size: 0.82rem;
+      color: var(--text-dim);
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+    @media (max-width: 1024px) {
+      .servicios-grid { grid-template-columns: 1fr 1fr; }
+      .pasos { grid-template-columns: repeat(2, 1fr); }
+      .pasos::before { display: none; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --space-2xl: 4rem; }
+
+      .nav-list, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-badge { margin-inline: auto; }
+      .hero-sub { margin-inline: auto; }
+      .hero-actions { justify-content: center; }
+      .terminal { margin-top: var(--space-lg); }
+
+      .servicios-grid { grid-template-columns: 1fr; }
+      .audiencias-grid { grid-template-columns: 1fr; }
+      .pasos { grid-template-columns: 1fr 1fr; }
+      .diferenciadores { grid-template-columns: 1fr; }
+      .contacto-inner { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-links { flex-wrap: wrap; gap: var(--space-sm); }
+    }
+
+    @media (max-width: 480px) {
+      .pasos { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions .btn { justify-content: center; }
+    }
+
+    /* =========================================================
+       EQUIPO / BRANDING PERSONAL
+    ========================================================= */
+    .equipo { background: var(--surface); }
+
+    .equipo-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-xl);
+      align-items: center;
+    }
+
+    .equipo-text .section-title { margin-bottom: var(--space-sm); }
+
+    .equipo-quote {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      border-left: 3px solid var(--accent);
+      padding-left: var(--space-md);
+      margin: var(--space-lg) 0;
+      font-style: italic;
+    }
+
+    .equipo-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .tag {
+      background: var(--accent-dim);
+      border: 1px solid var(--border-accent);
+      color: var(--accent);
+      border-radius: 99px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      font-family: var(--font-display);
+    }
+
+    /* Card de persona */
+    .persona-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Fondo decorativo estilo banner */
+    .persona-bg {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(135deg, var(--bg) 0%, var(--surface-2) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl) var(--space-md) var(--space-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Grid decorativo de fondo */
+    .persona-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 32px 32px;
+      opacity: 0.4;
+    }
+
+    /* Glow cian detrás de la foto */
+    .persona-glow {
+      position: absolute;
+      top: 20px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      z-index: 0;
+    }
+
+    .persona-photo-wrap {
+      position: relative;
+      z-index: 1;
+      margin-bottom: var(--space-md);
+    }
+
+    .persona-photo {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+      box-shadow:
+        0 0 0 6px var(--accent-dim),
+        0 16px 48px rgba(0,0,0,0.5);
+      position: relative;
+      z-index: 1;
+    }
+
+    .persona-name {
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .persona-role {
+      position: relative;
+      z-index: 1;
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: var(--font-display);
+      margin-bottom: var(--space-md);
+    }
+
+    .persona-badge {
+      position: relative;
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(16,185,129,0.12);
+      border: 1px solid rgba(16,185,129,0.3);
+      color: var(--success);
+      border-radius: 99px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .persona-badge::before {
+      content: '';
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--success);
+      animation: pulse 2s infinite;
+    }
+
+    /* Acento naranja/cian en esquinas — inspirado en banner de referencia */
+    .corner-accent {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--accent);
+      opacity: 0.4;
+    }
+    .corner-accent.tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+    .corner-accent.br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+
+    @media (max-width: 768px) {
+      .equipo-inner { grid-template-columns: 1fr; }
+      .persona-photo { width: 130px; height: 130px; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <header>
+      <figure>
+          <picture>
+            <source media="(min-width: 250px) and (max-width: 1200px)" srcset="/Portafolio/01-landing-page/assets/img/banner/EnvTechBanner.png" type="image/png">
+            <img src="/Portafolio/01-landing-page/assets/img/banner/EnvTechBanner.png" alt="Logo Academia Conquer Crypto" width = "490px" height="200px">
+            <figcaption><strong>Environment and Technology © Todos los Derechos reservados</strong></figcaption>
+          </picture>
+        </figure>
+      <br/>
+      <nav>
+        <section> 
+        <ul>
+          <li>
+            <a href="index.html"> 🚀 Volver a Home</a>
+          </li>
+        </ul>
+          <div hidden>
+            <li><a href="quienes_somos.html">Quienes Somos</a></li>
+            <li><a href="cursos.html">Servicios</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="registro.html">Registro</a></li>
+            <li><a href="login.html">Login </a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+          </div>
+        </section>
+      </nav>
+      <br/>
+        <section>
+        <div class="decorative-line">
+          <source media="(min-width: 250px) and (max-width: 1200px) and (min-height: 250px) and (max-height: 1200px)" srcset="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+          <img
+          src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"
+          alt="Línea decorativa con saludo de agradecimiento y separación del contenido principal"
+          title="Decoración final de la sección principal" width="2000px">
+        </div>
+        </section>
+  </header>
+  <br/>
+        
+  <main>
+    <h1>Aviso Legal</h1>
+    <div fs-toc-element="contents" class="text-rich-text w-richtext">
+      <section>
+          <article>
+              <p>
+                Información en cumplimiento de la normativa de protección de datos personales a nivel internacional.
+                En prácticamente la totalidad de los países existen normas de protección de datos pensadas para proteger <strong>tu</strong> información personal.
+                Por ello, es muy importante para nosotros que entiendas perfectamente qué vamos a hacer con los datos personales que te pedimos.
+                Así, seremos transparentes y te daremos el control de <strong>tus</strong> datos, con un lenguaje sencillo y opciones claras que te permitirán decidir qué haremos con <strong>tu</strong> información personal.            
+              </p>
+            <br/>
+        </article>
+      </section>
+      <section>
+          <div class="decorative-line">
+              <source media="(min-width: 250px) and (max-width: 1200px) and (min-height: 250px) and (max-height: 1200px)" srcset="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif">
+              <img
+              src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"
+              alt="Línea decorativa con saludo de agradecimiento y separación del contenido principal"
+              title="Decoración final de la sección principal" width="2000px">
+          </div>
+      </section>
+      <br/>
+        
+      <!-- Desplegable 1 -->
+        <h2>¿Quiénes somos?</h2>
+          <details>
+              <summary>ENVTECH LLC</summary>
+                <section>
+                  <p>Envtech. Empresa prestación de servicios tecnológicos, con sede en Delaware, Estados Unidos.</p>
+                  <p><strong>Envtech LLC</strong></p>
+                  <p><strong>EIN: 99-9999999</strong></p>
+                  <p><strong>Dirección: 55555 Coastal Highway, Lewes 55555, Delaware, USA</strong></p>
+                  <p><strong>Telefón: +1 555-555-5555</strong></p>
+                  <p><strong>Correo: customer@envtech.com</strong></p>
+                </section>
+          </details>
+        <br/>
+
+        <!-- Desplegable 2 -->  
+        <h2>Uso del Sitio Web</h2>
+          <details>
+              <summary>La Web</summary>
+                <section>  
+                  <p>
+                    Dirección de correo electrónico de contacto: customer@Envtech.com | Nuestra página web: <a href="https://www.Envtech.com" target="_blank" rel="noopener"><www class="envtech">Envtech</www>.com</a>
+                  </p>
+                </section>
+          </details>
+          <br/>
+
+          <!-- Desplegable 3 -->
+          <h2>¿Para qué vamos a usar tus datos?</h2>
+            <details>
+                <summary>Tus datos personales</summary>
+                  <section>
+                    <p>
+                      Con carácter general, <strong>tus</strong> datos personales serán usados para poder relacionarnos contigo y poder prestarte nuestros servicios, incluyendo también el comercio electrónico (e-commerce), consistente en la compra y venta de productos o de servicios a través de medios electrónicos. 
+                      Asimismo, también pueden ser usados para otras actividades, como enviarte publicidad o promocionar nuestras actividades, así como la emisión de nuestras facturas a <strong>tu</strong> nombre.
+                    </p>
+                  </section>
+            </details>
+            <br/>              
+            
+            <!-- Desplegable 4 -->
+            <h2>¿Por qué necesitamos usar tus datos?</h2>
+              <details>
+                  <summary>Uso de tus datos personales</summary>
+                    <section>
+                      <p>
+                        <strong>Tus</strong> datos personales son necesarios para poder relacionarnos contigo y poder prestarte nuestros servicios. 
+                        En este sentido, pondremos a <strong>tu</strong> disposición una serie de casillas que te permitirán decidir de manera clara y sencilla sobre el uso de <strong>tu</strong> información personal. 
+                        Toda la información que te requerimos será utilizada para contribuir al correcto desenvolvimiento de la relación de compraventa de productos que nos une contigo.
+                      </p>
+                      <p>
+                        Datos tales como direcciones o números de teléfono, que en principio parecen no estar relacionados con la actividad de comercio electrónico, serán utilizados únicamente para asegurarnos de que puedas disfrutar de los productos adquiridos a través de este sitio web. 
+                        La información que nos proporciones deberá ser veraz para que los servicios de comercio electrónico puedan prestarse de manera coherente y efectiva. 
+                        Sería interesante, además, que actualices en todo momento la información que nos proporciones para evitar errores o confusiones futuras.
+                      </p>
+                    </section>
+              </details>
+              <br/>
+
+              <!-- Desplegable 5 -->
+              <h2>¿Quién va a conocer la información que te pedimos?</h2>
+                <details>
+                    <summary>Suministro de Información</summary>
+                      <section>
+                        <p>
+                          Con carácter general, sólo el personal de nuestra entidad que esté debidamente autorizado podrá tener conocimiento de la información que te pedimos. 
+                          De igual modo, podrán tener conocimiento de <strong>tu</strong> información personal aquellas entidades que necesiten tener acceso a la misma para que podamos prestarte nuestros servicios. 
+                          Así, por ejemplo, nuestro banco conocerá <strong>tus</strong> datos si el pago de nuestros servicios se realiza mediante tarjeta o transferencia bancaria.
+                        </p>
+                        <p>
+                          Asimismo, tendrán conocimiento de <strong>tu</strong> información aquellas entidades públicas o privadas a las cuales estemos obligados a facilitar <strong>tus</strong> datos personales con motivo del cumplimiento de alguna ley. 
+                          Por ejemplo, la Ley Tributaria obliga a facilitar a la Agencia Tributaria determinada información sobre operaciones económicas.
+                        </p>
+                      </section>
+                </details>
+                <br/>
+
+              <!-- Desplegable 6 -->
+                <h2>¿Cómo vamos a proteger tus datos?</h2>
+                  <details>
+                      <summary>Protección de tus datos personales</summary>
+                        <section>
+                          <p>
+                            En la medida de lo posible, le proporcionaremos información clara y sencilla a <strong>tu</strong> respecto de la información que te solicitamos.
+                          <p>
+                          <p>
+                          Protegeremos <strong>tus</strong> datos con medidas de seguridad eficaces en función de los riesgos que conlleve el uso de <strong>tu</strong> información. Para ello, nuestra entidad ha aprobado una Política de Protección de Datos y se realizan controles y auditorías anuales para verificar que <strong>tus</strong> datos personales están seguros en todo momento.</p><h2>¿Enviaremos tus datos a otros países?</h2><p>En el mundo hay países que son seguros para <strong>tus</strong> datos y otros que no lo son tanto. Por ejemplo, la Unión Europea es un entorno seguro. Nuestra política es no enviar <strong>tu</strong> información personal a ningún país que no sea seguro desde el punto de vista de la protección de <strong>tus</strong> datos. En el caso de que sea imprescindible enviar <strong>tus</strong> datos a cualquier país, siempre te solicitaremos previamente <strong>tu</strong> permiso o te comunicaremos que lo hemos hecho si nos vemos obligados por mandato legal.</p><h2>¿Durante cuánto tiempo vamos a conservar tus datos?</h2><p>Conservaremos <strong>tus</strong> datos durante nuestra relación y mientras nos obliguen las leyes. Una vez finalizados los plazos legales aplicables, procederemos a eliminarlos de forma segura y respetuosa con el medio ambiente.</p><h2>¿Cuáles son tus derechos de protección de datos?</h2><p>En cualquier momento puedes dirigirte a nosotros para saber qué información tenemos sobre ti, rectificarla si fuese incorrecta y eliminarla una vez finalizada nuestra relación, en el caso de que ello sea legalmente posible. También tienes derecho a solicitar el traspaso de <strong>tu</strong> información a otra entidad (<strong>tu</strong> derecho a la "portabilidad"). Para solicitar alguno de estos derechos, deberás realizar una solicitud escrita a nuestra dirección, junto con una fotocopia de <strong>tu</strong> documento de identidad.</p><h2>¿Puedes retirar tu consentimiento si cambias de opinión?</h2><p>Tú puedes retirar <strong>tu</strong> consentimiento si cambias de opinión sobre el uso de <strong>tus</strong> datos en cualquier momento. Si en su día estuviste interesado/a en recibir publicidad pero ya no lo deseas, puedes hacérnoslo constar.</p><p>Si entiendes que <strong>tus</strong> derechos han sido desatendidos, puedes formular una reclamación en la Agencia de Protección de Datos de <strong>tu</strong> país. Hacerlo no conlleva ningún coste y no es necesaria la asistencia de abogado ni procurador.</p><h2>¿Elaboraremos perfiles sobre ti?</h2><p>Nuestra política es no elaborar perfiles sobre los usuarios de nuestros servicios. No obstante, si necesitásemos hacerlo para ofrecerte productos adaptados a <strong>tus</strong> gustos, aplicaremos medidas de seguridad eficaces para proteger <strong>tu</strong> información.
+                          </p>
+                        </section>
+                  </details>
+                  <br/>
+
+              <!-- Desplegable 7 -->
+                <h2>¿Usaremos tus datos para otros fines?</h2>
+                  <details>
+                      <summary>Objetivo de uso de tus datos personales</summary>
+                        <section>
+                          <p>
+                            Nuestra Politica es no usar <strong>tus</strong> datos para finalidades distintas a las que te hemos explicado. 
+                            Si necesitásemos hacerlo, siempre te solicitaremos previamente <strong>tu</strong> permiso a través de opciones claras.
+                          </p>
+                        </section>
+                  </details>
+                <br/>
+              </div>
+                <section>
+                    <figure>
+                          <picture>
+                            <p class="cajascontacto">
+                                <!-- Etiqueta Completa de red Spcial Instagram + Plus Barra Visual-->
+                                <a
+                                  href="https://www.instagram.com/envtech/"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  aria-label="Instagram de Envtech"
+                                  title="Visitar perfil de Instagram">
+                                    <img 
+                                        src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"
+                                        alt="Línea decorativa con saludo de agradecimiento y separación del contenido principal"
+                                        title="Decoración final de la sección principal" width="290px">
+                                    <source media="(min-width: 285px) and (max-width: 1200px)" srcset="https://img.shields.io/badge/Instagram-Visitar%20Perfil-E4405F?style=for-the-badge&logo=instagram&logoColor=white">
+                                    <img
+                                        src="https://img.shields.io/badge/Instagram-Visitar%20Perfil-E4405F?style=for-the-badge&logo=instagram&logoColor=white"
+                                        alt="Visitar perfil de Instagram" width="290px" height="30px">
+                                    <img 
+                                        src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"
+                                        alt="Línea decorativa con saludo de agradecimiento y separación del contenido principal"
+                                        title="Decoración final de la sección principal" width="290px">
+                                </a>
+                                <!-- Etiqueta Completa de red Spcial Discord + Plus Barra Visual--> 
+                                <a
+                                    href="https://discord.com/users/1188712701015363649"
+                                    aria-label="Discord de Envtech"
+                                    title="Contactar por Discord">
+                                    <source media="(min-width: 280px) and (max-width: 1200px)" srcset="https://img.shields.io/badge/Discord-Contactar-5865F2?style=for-the-badge&logo=discord&logoColor=white">
+                                    <img
+                                        src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"
+                                        alt="Línea decorativa con saludo de agradecimiento y separación del contenido principal"
+                                        title="Decoración final de la sección principal" width="280px">
+                                    <img
+                                        src="https://img.shields.io/badge/Discord-Contactar-5865F2?style=for-the-badge&logo=discord&logoColor=white"
+                                        alt="Contactar por Discord" width="280px" height="30px">
+                                    <img
+                                        src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"
+                                        alt="Línea decorativa con saludo de agradecimiento y separación del contenido principal"
+                                        title="Decoración final de la sección principal" width="280px">
+                                </a>
+
+                                <!-- Etiqueta Completa de red Spcial LinkedIn + Plus Barra Visual-->
+                                <a 
+                                    href="https://linkedin.com/in/v%C3%ADctor-miletic-89656049"
+                                    aria-label="Perfil de LinkedIn de Envtech"
+                                    title="Contactar por LinkedIn">
+                                                      
+                                    <source media="(min-width: 280px) and (max-width: 1200px)" srcset="https://img.shields.io/badge/LinkedIn-Perfil-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white">
+                                    <img
+                                        src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"
+                                        alt="Línea decorativa con saludo de agradecimiento y separación del contenido principal"
+                                        title="Decoración final de la sección principal" width="280px">
+                                    <img
+                                        src="https://img.shields.io/badge/LinkedIn-Perfil-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"
+                                        alt="Contactar por LinkedIn" width="280px" height="30px"> 
+                                    <img
+                                        src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"
+                                        alt="Línea decorativa con saludo de agradecimiento y separación del contenido principal"
+                                        title="Decoración final de la sección principal" width="280px">
+                                </a>
+                          
+                                <!-- Etiqueta Completa de red Spcial Telegram + Plus Barra Visual-->
+                                <a  href="https://t.me/viktorostermann"
+                                    aria-label="Telegram de Envtech"
+                                    title="Contactar por Telegram">
+                                    
+                                    <source media="(min-width: 280px) and (max-width: 1200px)" srcset="https://img.shields.io/badge/Telegram-Escribir-26A5E4?style=for-the-badge&logo=telegram&logoColor=white">
+                                    <img 
+                                        src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"
+                                        alt="Línea decorativa con saludo de agradecimiento y separación del contenido principal"
+                                        title="Decoración final de la sección principal" width="280px">
+                                    <img 
+                                        src="https://img.shields.io/badge/Telegram-Escribir-26A5E4?style=for-the-badge&logo=telegram&logoColor=white"
+                                        alt="Contactar por Telegram" width="280px" height="30px"> 
+                                    <img 
+                                        src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"
+                                        alt="Línea decorativa con saludo de agradecimiento y separación del contenido principal"
+                                        title="Decoración final de la sección principal" width="280px">
+                                </a>
+
+                                <!-- Etiqueta Completa de red Spcial Gmail + Plus Barra Visual-->
+                                <a
+                                  href="mailto:viktoremiletic@gmail.com"
+                                  aria-label="Gmail de Envtech"
+                                  title="Enviar correo por Gmail">
+                                    <source media="(min-width: 285px) and (max-width: 1200px)" srcset="https://img.shields.io/badge/Gmail-Enviar%20Correo-D14836?style=for-the-badge&logo=gmail&logoColor=white">
+                                    <img 
+                                        src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"
+                                        alt="Línea decorativa con saludo de agradecimiento y separación del contenido principal"
+                                        title="Decoración final de la sección principal" width="290px">
+                                    <img
+                                        src="https://img.shields.io/badge/Gmail-Enviar%20Correo-D14836?style=for-the-badge&logo=gmail&logoColor=white"
+                                        alt="Contactar por Gmail" width="290px" height="30px"> 
+                                    <img 
+                                        src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"
+                                        alt="Línea decorativa con saludo de agradecimiento y separación del contenido principal"
+                                        title="Decoración final de la sección principal" width="290px">
+                                </a>
+
+                                <!-- Etiqueta Completa de red Social Facebook + Barra Visual -->
+                                <a
+                                    href="https://www.facebook.com/envtech/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label="Facebook de Envtech"
+                                    title="Visitar página de Facebook">
+                                    <img
+                                        src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"
+                                        alt="Línea decorativa con saludo de agradecimiento y separación del contenido principal"
+                                        title="Decoración final de la sección principal" width="290px">
+                                    <source media="(min-width: 285px) and (max-width: 1200px)"srcset="https://img.shields.io/badge/Facebook-Visitar%20Perfil-1877F2?style=for-the-badge&logo=facebook&logoColor=white">
+                                    <img
+                                        src="https://img.shields.io/badge/Facebook-Visitar%20Perfil-1877F2?style=for-the-badge&logo=facebook&logoColor=white"
+                                        alt="Visitar perfil de Facebook" width="290px" height="30px">
+                                    <img
+                                        src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif"
+                                        alt="Línea decorativa con saludo de agradecimiento y separación del contenido principal"
+                                        title="Decoración final de la sección principal" width="290px">
+                                </a>
+                            </p>
+                          </picture>
+                    </figure>
+              </section>
+            <br/>
+            <hr />
+            
+  <!-- =========================================================
+       EQUIPO / BRANDING PERSONAL
+  ========================================================= -->
+  <footer class="footer" role="contentinfo">
+    <div class="container footer-inner">
+      <div class="footer-logo">Env<span>tech</span></div>
+
+      <nav aria-label="Links del footer">
+        <ul class="footer-links">
+            <li><a href="#servicios"> 🪟 Servicios</a></li>
+            <li><a href="#proceso">   💼 Proceso</a></li>
+            <li><a href="#contacto">  📬 Contacto</a></li>
+            <li>
+              <a
+                href="https://www.linkedin.com/in/v%C3%ADctor-miletic-89656049/"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="footer-linkedin"
+                aria-label="LinkedIn de Victor Miletic"><br/>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                LinkedIn
+              </a>
+            </li>
+        </ul>
+      </nav>
+            <p>
+                <a href="./aviso_legal.html">💬 Aviso Legal</a>
+            </p>
+            <p 
+                class="footer-copy">Desarrollado por Víctor Míletic © <span id="year"></span> Envtech | Todos los derechos reservados.
+            </p>
+
+            </div>
+        </footer>
+
+        </main>
+
+  <!-- =========================================================
+       MODAL DE PROYECTO
+  ========================================================= -->
+  <div
+    class="proyecto-modal-overlay"
+    id="proyecto-modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="proyecto-modal-title"
+  >
+    <div class="proyecto-modal">
+      <button class="proyecto-modal-close" id="proyecto-modal-close" aria-label="Cerrar detalle de proyecto">×</button>
+
+      <div class="proyecto-modal-media" id="proyecto-modal-media"></div>
+      <div class="proyecto-modal-thumbs" id="proyecto-modal-thumbs"></div>
+
+      <div class="proyecto-modal-body">
+        <span class="proyecto-modal-cat" id="proyecto-modal-cat"></span>
+        <h3 class="proyecto-modal-title" id="proyecto-modal-title"></h3>
+        <p class="proyecto-modal-desc" id="proyecto-modal-desc"></p>
+        <div class="proyecto-tech-list" id="proyecto-modal-tech"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL DE CONFIRMACIÓN
+  ========================================================= -->
+  <div
+    class="modal-overlay"
+    id="modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+    aria-describedby="modal-desc"
+  >
+    <div class="modal">
+      <button class="modal-close" id="modal-close" aria-label="Cerrar confirmación">×</button>
+      <span class="modal-icon" aria-hidden="true">✅</span>
+      <h3 id="modal-title">¡Consulta recibida!</h3>
+
+      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:0.5rem;">
+        Tu código de referencia es:
+      </p>
+      <div class="modal-code" id="modal-code" aria-live="polite">ENV-00000000-0000</div>
+
+      <p class="modal-note" id="modal-desc">
+        Guarda este código. Es la única constancia de tu consulta en el sistema.
+        Te responderemos en menos de <strong>24 horas hábiles</strong>.
+      </p>
+
+      <div class="modal-privacidad">
+        🔒 Tu consulta se eliminará del sistema en <strong>3 días</strong>.
+        No almacenamos tu nombre, email ni datos personales.
+        Solo persiste este código de referencia anónimo.
+      </div>
+
+      <button class="btn btn-primary modal-ok" id="modal-ok">
+        Entendido
+      </button>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       JAVASCRIPT
+  ========================================================= -->
+  <script>
+    'use strict';
+
+    /* -------------------------------------------------------
+       COPYRIGHT AÑO DINÁMICO
+    ------------------------------------------------------- */
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    /* -------------------------------------------------------
+       MENÚ HAMBURGUESA
+    ------------------------------------------------------- */
+    const hamburger  = document.querySelector('.hamburger');
+    const mobileNav  = document.getElementById('mobile-nav');
+    const mobileLinks = mobileNav.querySelectorAll('a');
+
+    function toggleMenu(open) {
+      const isOpen = open ?? hamburger.getAttribute('aria-expanded') !== 'true';
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+      mobileNav.classList.toggle('open', isOpen);
+    }
+
+    hamburger.addEventListener('click', () => toggleMenu());
+
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => toggleMenu(false));
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!hamburger.contains(e.target) && !mobileNav.contains(e.target)) {
+        toggleMenu(false);
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') toggleMenu(false);
+    });
+
+    /* -------------------------------------------------------
+       TERMINAL TYPEWRITER — firma visual del hero
+    ------------------------------------------------------- */
+    const terminalBody = document.getElementById('terminal-body');
+
+    const lines = [
+      { type: 'prompt', text: '$ envtech --describe' },
+      { type: 'out',    text: 'Desarrollo web moderno ✓' },
+      { type: 'out',    text: 'Consultoría tecnológica ✓' },
+      { type: 'out',    text: 'SaaS y automatizaciones ✓' },
+      { type: 'prompt', text: '$ envtech --cliente "tu negocio"' },
+      { type: 'out',    text: 'Analizando necesidades...' },
+      { type: 'out',    text: 'Solución a medida: lista ✓' },
+      { type: 'comment',text: '# ¿Hablamos?' },
+    ];
+
+    let lineIdx = 0;
+    let charIdx = 0;
+    let currentEl = null;
+
+    function typeNext() {
+      // Reducción de movimiento: mostrar todo de golpe
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        terminalBody.innerHTML = lines.map(l => {
+          const cls = l.type === 'prompt' ? 't-prompt' : l.type === 'out' ? 't-out' : 't-comment';
+          return `<div><span class="${cls}">${escapeHtml(l.text)}</span></div>`;
+        }).join('');
+        return;
+      }
+
+      if (lineIdx >= lines.length) {
+        if (currentEl) {
+          currentEl.insertAdjacentHTML('beforeend', '<span class="t-cursor"></span>');
+        }
+        return;
+      }
+
+      const line = lines[lineIdx];
+
+      if (charIdx === 0) {
+        const div = document.createElement('div');
+        const cls = line.type === 'prompt' ? 't-prompt' : line.type === 'out' ? 't-out' : 't-comment';
+        const span = document.createElement('span');
+        span.className = cls;
+        div.appendChild(span);
+        terminalBody.appendChild(div);
+        currentEl = span;
+      }
+
+      if (charIdx < line.text.length) {
+        currentEl.textContent += line.text[charIdx];
+        charIdx++;
+        setTimeout(typeNext, line.type === 'prompt' ? 45 : 30);
+      } else {
+        lineIdx++;
+        charIdx = 0;
+        setTimeout(typeNext, line.type === 'prompt' ? 400 : 180);
+      }
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    // Arrancar typewriter después de un breve delay inicial
+    setTimeout(typeNext, 800);
+
+    /* -------------------------------------------------------
+       GENERADOR DE CÓDIGO DE REFERENCIA (simulado)
+       Formato: ENV-YYYYMMDD-NNNN
+       En Feature 003 este código lo genera el backend.
+    ------------------------------------------------------- */
+    function generateRefCode() {
+      const now   = new Date();
+      const year  = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day   = String(now.getDate()).padStart(2, '0');
+      const seq   = String(Math.floor(Math.random() * 9000) + 1000);
+      return `ENV-${year}${month}${day}-${seq}`;
+    }
+
+    /* -------------------------------------------------------
+       VALIDACIÓN Y ENVÍO DEL FORMULARIO
+    ------------------------------------------------------- */
+    const form       = document.getElementById('contacto-form');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalCode    = document.getElementById('modal-code');
+    const modalClose   = document.getElementById('modal-close');
+    const modalOk      = document.getElementById('modal-ok');
+
+    function showError(fieldId, errorId, show) {
+      const field = document.getElementById(fieldId);
+      const error = document.getElementById(errorId);
+      if (show) {
+        field.classList.add('error');
+        error.classList.add('visible');
+      } else {
+        field.classList.remove('error');
+        error.classList.remove('visible');
+      }
+    }
+
+    function validateForm() {
+      let valid = true;
+
+      const servicio = document.getElementById('servicio');
+      const asunto   = document.getElementById('asunto');
+      const mensaje  = document.getElementById('mensaje');
+
+      if (!servicio.value) {
+        showError('servicio', 'servicio-error', true);
+        valid = false;
+      } else {
+        showError('servicio', 'servicio-error', false);
+      }
+
+      if (!asunto.value.trim() || asunto.value.trim().length < 5) {
+        showError('asunto', 'asunto-error', true);
+        valid = false;
+      } else {
+        showError('asunto', 'asunto-error', false);
+      }
+
+      if (!mensaje.value.trim() || mensaje.value.trim().length < 10) {
+        showError('mensaje', 'mensaje-error', true);
+        valid = false;
+      } else {
+        showError('mensaje', 'mensaje-error', false);
+      }
+
+      return valid;
+    }
+
+    // Limpiar error al escribir
+    ['servicio','asunto','mensaje'].forEach(id => {
+      const el = document.getElementById(id);
+      el.addEventListener('input', () => {
+        el.classList.remove('error');
+        const errEl = document.getElementById(`${id}-error`);
+        if (errEl) errEl.classList.remove('visible');
+      });
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!validateForm()) return;
+
+      // Generar código y mostrar modal
+      const code = generateRefCode();
+      modalCode.textContent = code;
+      modalOverlay.classList.add('open');
+      modalClose.focus();
+    });
+
+    function closeModal() {
+      modalOverlay.classList.remove('open');
+      form.reset();
+    }
+
+    modalClose.addEventListener('click', closeModal);
+    modalOk.addEventListener('click', closeModal);
+
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modalOverlay.classList.contains('open')) {
+        closeModal();
+      }
+    });
+
+    /* -------------------------------------------------------
+       TRAP FOCUS EN MODAL (accesibilidad)
+    ------------------------------------------------------- */
+    const modal = modalOverlay.querySelector('.modal');
+
+    modalOverlay.addEventListener('keydown', (e) => {
+      if (!modalOverlay.classList.contains('open')) return;
+      if (e.key !== 'Tab') return;
+
+      const focusable = modal.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      const first = focusable[0];
+      const last  = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+  
+
+    /* -------------------------------------------------------
+       PROYECTOS — datos y render
+       Para agregar un proyecto real: cambiar placeholder a false
+       y completar imagenPortada / imagenes / videoClip.
+    ------------------------------------------------------- */
+    const PROYECTOS_DATA = [
+      {
+        id: 'proyecto-01',
+        titulo: 'Próximo proyecto web',
+        categoria: 'web',
+        descripcionCorta: 'Landing page de alta conversión para negocio local.',
+        descripcionLarga: 'Espacio reservado para el primer proyecto real de desarrollo web de Envtech. Aquí se documentará el problema del cliente, la solución implementada y los resultados obtenidos.',
+        tecnologias: ['HTML5', 'CSS3', 'JavaScript'],
+        videoClip: null,
+        placeholder: true
+      },
+      {
+        id: 'proyecto-02',
+        titulo: 'Próxima consultoría',
+        categoria: 'consultoria',
+        descripcionCorta: 'Diagnóstico tecnológico y hoja de ruta para escalar.',
+        descripcionLarga: 'Espacio reservado para un caso real de consultoría tecnológica: el diagnóstico inicial, las recomendaciones entregadas y el impacto medible en la operación del cliente.',
+        tecnologias: ['Arquitectura', 'Roadmap técnico'],
+        videoClip: null,
+        placeholder: true
+      },
+      {
+        id: 'proyecto-03',
+        titulo: 'Próximo SaaS',
+        categoria: 'saas',
+        descripcionCorta: 'Sistema de automatización de procesos internos.',
+        descripcionLarga: 'Espacio reservado para un proyecto de SaaS o automatización: el flujo manual que existía antes, el sistema construido y el tiempo ahorrado para el cliente.',
+        tecnologias: ['Python', 'FastAPI', 'Docker'],
+        videoClip: null,
+        placeholder: true
+      }
+    ];
+
+    const CATEGORIA_LABEL = { web: 'Desarrollo Web', consultoria: 'Consultoría', saas: 'SaaS' };
+
+    function renderProyectos() {
+      const grid = document.getElementById('proyectos-grid');
+      if (!grid) return;
+
+      grid.innerHTML = PROYECTOS_DATA.map((p, idx) => `
+        <button
+          class="proyecto-card"
+          type="button"
+          role="listitem"
+          data-proyecto-idx="${idx}"
+          aria-label="Ver detalle de ${escapeHtmlProyecto(p.titulo)}"
+        >
+          <div class="proyecto-media">
+            ${p.placeholder ? '<span class="proyecto-placeholder-badge">Próximamente</span>' : ''}
+            <span class="proyecto-cat-badge">${CATEGORIA_LABEL[p.categoria] || p.categoria}</span>
+            ${p.videoClip
+              ? '<span class="video-play-icon" aria-hidden="true">▶</span>'
+              : '<span class="proyecto-media-icon" aria-hidden="true">' + (p.categoria === 'web' ? '🌐' : p.categoria === 'consultoria' ? '🧠' : '⚙️') + '</span>'
+            }
+          </div>
+          <div class="proyecto-body">
+            <p class="proyecto-title">${escapeHtmlProyecto(p.titulo)}</p>
+            <p class="proyecto-desc">${escapeHtmlProyecto(p.descripcionCorta)}</p>
+            <span class="proyecto-link">Ver detalle →</span>
+          </div>
+        </button>
+      `).join('');
+
+      grid.querySelectorAll('.proyecto-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const idx = parseInt(card.dataset.proyectoIdx, 10);
+          openProyectoModal(PROYECTOS_DATA[idx]);
+        });
+      });
+    }
+
+    function escapeHtmlProyecto(str) {
+      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
+
+    /* -------------------------------------------------------
+       MODAL DE PROYECTO
+    ------------------------------------------------------- */
+    const proyectoModalOverlay = document.getElementById('proyecto-modal-overlay');
+    const proyectoModalClose   = document.getElementById('proyecto-modal-close');
+    const proyectoModalMedia   = document.getElementById('proyecto-modal-media');
+    const proyectoModalThumbs  = document.getElementById('proyecto-modal-thumbs');
+    const proyectoModalCat     = document.getElementById('proyecto-modal-cat');
+    const proyectoModalTitle   = document.getElementById('proyecto-modal-title');
+    const proyectoModalDesc    = document.getElementById('proyecto-modal-desc');
+    const proyectoModalTech    = document.getElementById('proyecto-modal-tech');
+
+    let lastFocusedBeforeProyectoModal = null;
+
+    function openProyectoModal(proyecto) {
+      lastFocusedBeforeProyectoModal = document.activeElement;
+
+      proyectoModalCat.textContent = CATEGORIA_LABEL[proyecto.categoria] || proyecto.categoria;
+      proyectoModalTitle.textContent = proyecto.titulo;
+      proyectoModalDesc.textContent = proyecto.descripcionLarga;
+
+      // Media principal
+      if (proyecto.videoClip) {
+        proyectoModalMedia.innerHTML = `<video src="${proyecto.videoClip}" controls playsinline></video>`;
+      } else if (proyecto.imagenPortada) {
+        proyectoModalMedia.innerHTML = `<img src="${proyecto.imagenPortada}" alt="${escapeHtmlProyecto(proyecto.titulo)}" />`;
+      } else {
+        const icon = proyecto.categoria === 'web' ? '🌐' : proyecto.categoria === 'consultoria' ? '🧠' : '⚙️';
+        proyectoModalMedia.innerHTML = `<span class="proyecto-media-icon" aria-hidden="true">${icon}</span>`;
+      }
+
+      // Miniaturas (si hay galería)
+      if (proyecto.imagenes && proyecto.imagenes.length > 1) {
+        proyectoModalThumbs.innerHTML = proyecto.imagenes.map((img, i) =>
+          `<div class="proyecto-thumb${i === 0 ? ' active' : ''}" data-thumb-src="${img}">🖼</div>`
+        ).join('');
+        proyectoModalThumbs.style.display = 'flex';
+      } else {
+        proyectoModalThumbs.innerHTML = '';
+        proyectoModalThumbs.style.display = 'none';
+      }
+
+      // Tecnologías
+      proyectoModalTech.innerHTML = (proyecto.tecnologias || [])
+        .map(t => `<span class="tag">${escapeHtmlProyecto(t)}</span>`).join('');
+
+      proyectoModalOverlay.classList.add('open');
+      proyectoModalClose.focus();
+    }
+
+    function closeProyectoModal() {
+      proyectoModalOverlay.classList.remove('open');
+      if (lastFocusedBeforeProyectoModal) lastFocusedBeforeProyectoModal.focus();
+    }
+
+    proyectoModalClose.addEventListener('click', closeProyectoModal);
+    proyectoModalOverlay.addEventListener('click', (e) => {
+      if (e.target === proyectoModalOverlay) closeProyectoModal();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && proyectoModalOverlay.classList.contains('open')) {
+        closeProyectoModal();
+      }
+    });
+
+    // Trap de foco
+    proyectoModalOverlay.addEventListener('keydown', (e) => {
+      if (!proyectoModalOverlay.classList.contains('open') || e.key !== 'Tab') return;
+      const modalEl = proyectoModalOverlay.querySelector('.proyecto-modal');
+      const focusable = modalEl.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+      const first = focusable[0];
+      const last  = focusable[focusable.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+
+    // Inicializar render al cargar
+    renderProyectos();
+
+  </script>
+
+</body>
+</html>
