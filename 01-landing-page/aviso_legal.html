@@ -1681,6 +1681,99 @@
                   </details>
                 <br/>
               </div>
+              </br/>
+
+              
+              <!-- =========================================================
+                 LEGALES y CONTACTO
+              ========================================================= -->
+              <section id="contacto" class="section" aria-labelledby="contacto-title">
+                <div class="container contacto-inner">
+
+                  <div class="contacto-info">
+                    <p class="section-label">Legales</p>
+                    <h2 class="section-title" id="contacto-title">Hablemos de tu seguridad</h2>
+                    <p>Cuéntanos tus dudas. Sin formularios eternos.</p>
+
+                    <div class="contacto-features">
+                      <div class="contacto-feature">
+                        <span aria-hidden="true">⚡</span>
+                        <span>Respondemos en menos de 24 horas hábiles</span>
+                      </div>
+                      <div class="contacto-feature">
+                        <span aria-hidden="true">🔒</span>
+                        <span>Tu consulta se elimina del sistema en 3 días</span>
+                      </div>
+                      <div class="contacto-feature">
+                        <span aria-hidden="true">📋</span>
+                        <span>Recibes un código de referencia para seguimiento</span>
+                      </div>
+                      <div class="contacto-feature">
+                        <span aria-hidden="true">💬</span>
+                        <span>Sin spam ni bases de datos de clientes</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-card">
+                    <form id="contacto-form" novalidate aria-label="Formulario de contacto">
+
+                      <div class="form-group">
+                        <label for="servicio">¿Qué tipo de consulta tienes con relación a Seguridad?</label>
+                        <select id="servicio" name="servicio" required>
+                          <option value="">Selecciona una opción…</option>
+                          <option value="web">Tratamiento de datos personales</option>
+                          <option value="consultoria">Protección de datos</option>
+                          <option value="saas">Quién tendría acceso a mis datos</option>
+                          <option value="otro">Se almacenarán datos personales</option>
+                        </select>
+                        <span class="field-error" id="servicio-error" role="alert">Por favor selecciona una opción.</span>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="asunto">Asunto de tu consulta</label>
+                        <input
+                          type="text"
+                          id="asunto"
+                          name="asunto"
+                          placeholder="Ej: Necesito una landing page para mi negocio"
+                          maxlength="200"
+                          required
+                          aria-describedby="asunto-error"
+                        />
+                        <span class="field-error" id="asunto-error" role="alert">Por favor escribe el asunto de tu consulta.</span>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="mensaje">Cuéntanos más</label>
+                        <textarea
+                          id="mensaje"
+                          name="mensaje"
+                          rows="5"
+                          placeholder="Describe brevemente tu proyecto o necesidad. Cuanta más info nos des, mejor podremos ayudarte."
+                          maxlength="1000"
+                          required
+                          aria-describedby="mensaje-error"
+                        ></textarea>
+                        <span class="field-error" id="mensaje-error" role="alert">Por favor describe tu consulta.</span>
+                      </div>
+
+                      <div class="privacidad-aviso" role="note">
+                        <strong>🔒 Aviso de privacidad</strong>
+                        Tu consulta se eliminará automáticamente de nuestro sistema en <strong>3 días</strong>.
+                        Solo guardamos un código de referencia anónimo para que puedas hacer seguimiento.
+                        No almacenamos tu nombre, email ni ningún dato personal.
+                      </div>
+
+                      <button type="submit" class="btn btn-primary btn-submit">
+                        Enviar consulta →
+                      </button>
+                      
+                    </form>
+                  </div>
+                </div>
+              </section>
+              <br/>
+
               <section>
                 <figure>
                   <picture>
@@ -1804,10 +1897,10 @@
                         </a>
                     </p>
                   </picture>
-                </figure>
+                 </figure>
               </section>
             <br/>
-            <hr />
+        </main>
             
   <!-- =========================================================
        EQUIPO / BRANDING PERSONAL
@@ -1842,8 +1935,6 @@
 
             </div>
         </footer>
-
-        </main>
 
   <!-- =========================================================
        MODAL DE PROYECTO
