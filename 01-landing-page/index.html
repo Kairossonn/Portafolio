@@ -816,8 +816,17 @@
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
       font-size: 1rem; opacity: 0.5;
+      /* [FIX 1] Se agregó "overflow: hidden" para que la <img> que ahora
+         se inserta dentro de cada miniatura no se salga del cuadro de 56x56. */
+      overflow: hidden;
       transition: opacity var(--transition), border-color var(--transition);
     }
+    /* [FIX 1] Regla nueva: antes el div de la miniatura solo mostraba el
+       emoji de texto "🖼" (no existía ninguna <img> dentro del HTML generado
+       por JS, ver más abajo en openProyectoModal). Por eso las miniaturas
+       reales de la galería nunca se veían. Esta regla estila la <img> que
+       ahora sí se genera, para que llene el cuadro y no se distorsione. */
+    .proyecto-thumb img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
     .proyecto-thumb.active, .proyecto-thumb:hover { opacity: 1; border-color: var(--accent); }
 
     .proyecto-modal-body { padding: var(--space-lg); }
@@ -1221,6 +1230,12 @@
       line-height: 1.6;
     }
 
+    .modal-label {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+
     .modal-privacidad {
       background: rgba(0,196,255,0.05);
       border: 1px solid var(--border-accent);
@@ -1245,6 +1260,7 @@
       transition: color var(--transition);
     }
     .modal-close:hover { color: var(--text); }
+    
 
     /* =========================================================
        FOOTER
@@ -2115,6 +2131,7 @@
         </div>
     </section>
     <br/>
+
     <section>
       <figure>
         <picture>
@@ -2136,7 +2153,7 @@
                       <!-- Etiqueta Completa de red Spcial Instagram-->
                       <!-- href="https://www.instagram.com/envtech/"> Esta linea sustituye la Página en construcción -->
                       <a
-                        href="../under_construction.html" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Envtech" title="Visitar página de Instagram">
+                        href="../under_construction.html" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Envtech" title="Visitar página de Instagram" lazy="loading">
                         <source media="(min-width: 260px) and (max-width: 1200px)" srcset="https://img.shields.io/badge/Instagram-Visitar%20Perfil-E4405F?style=for-the-badge&logo=instagram&logoColor=white">
                         <img src="https://img.shields.io/badge/Instagram-Visitar%20Perfil-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Visitar perfil de Instagram" width="180px" height="20px">
                       </a>
@@ -2144,28 +2161,28 @@
 
                       <!-- Etiqueta Completa de red Spcial Discord--> 
                       <a
-                        href="https://discord.com/users/1188712701015363649" aria-label="Discord de Envtech" title="Contactar por Discord">
+                        href="https://discord.com/users/1188712701015363649" aria-label="Discord de Envtech" title="Contactar por Discord" lazy="loading">
                         <source media="(min-width: 260px) and (max-width: 1200px)" srcset="https://img.shields.io/badge/Discord-Contactar-5865F2?style=for-the-badge&logo=discord&logoColor=white">
                         <img src="https://img.shields.io/badge/Discord-Contactar-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Contactar por Discord" width="180px" height="20px">
                       </a>
                       <br />
                       <!-- Etiqueta Completa de red Spcial LinkedIn-->
                       <a 
-                        href="https://linkedin.com/in/v%C3%ADctor-miletic-89656049" aria-label="Perfil de LinkedIn de Envtech" title="Contactar por LinkedIn">
+                        href="https://linkedin.com/in/v%C3%ADctor-miletic-89656049" aria-label="Perfil de LinkedIn de Envtech" title="Contactar por LinkedIn" lazy="loading">
                         <source media="(min-width: 260px) and (max-width: 1200px)" srcset="https://img.shields.io/badge/LinkedIn-Perfil-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white">
                         <img src="https://img.shields.io/badge/LinkedIn-Perfil-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"  alt="Contactar por LinkedIn" width="150px" height="20px"> 
                       </a>
                       <br />    
                       <!-- Etiqueta Completa de red Spcial Telegram-->
                       <a  
-                        href="https://t.me/viktorostermann"aria-label="Telegram de Envtech" title="Contactar por Telegram">
+                        href="https://t.me/viktorostermann"aria-label="Telegram de Envtech" title="Contactar por Telegram" lazy="loading">
                         <source media="(min-width: 260px) and (max-width: 1200px)" srcset="https://img.shields.io/badge/Telegram-Escribir-26A5E4?style=for-the-badge&logo=telegram&logoColor=white">
                         <img src="https://img.shields.io/badge/Telegram-Escribir-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" alt="Contactar por Telegram" width="150px" height="20px"> 
                       </a>
                       <br />
                       <!-- Etiqueta Completa de red Spcial Gmail-->
                       <a  
-                        href="mailto:viktoremiletic@gmail.com" aria-label="Gmail de Envtech" title="Enviar correo por Gmail">
+                        href="mailto:viktoremiletic@gmail.com" aria-label="Gmail de Envtech" title="Enviar correo por Gmail" lazy="loading">
                         <source media="(min-width: 260px) and (max-width: 1200px)" srcset="https://img.shields.io/badge/Gmail-Enviar%20Correo-D14836?style=for-the-badge&logo=gmail&logoColor=white">
                         <img src="https://img.shields.io/badge/Gmail-Enviar%20Correo-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Contactar por Gmail" width="180px" height="20px"> 
                       </a>
@@ -2174,7 +2191,7 @@
                       <!-- Etiqueta Completa de red Social Facebook-->
                       <!-- href="https://www.facebook.com/envtech/"> Esta linea sustituye la Página en construcción -->
                       <a
-                        href="../under_construction.html" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Envtech" title="Visitar página de Facebook">
+                        href="../under_construction.html" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Envtech" title="Visitar página de Facebook" lazy="loading">
                         <source media="(min-width: 260px) and (max-width: 1200px)" srcset="https://img.shields.io/badge/Facebook-Visitar%20Perfil-1877F2?style=for-the-badge&logo=facebook&logoColor=white">
                         <img src="https://img.shields.io/badge/Facebook-Visitar%20Perfil-1877F2?style=for-the-badge&logo=facebook&logoColor=white" alt="Visitar perfil de Facebook" width="180px" height="20px">
                       </a>
@@ -2242,8 +2259,12 @@
     <div class="proyecto-modal">
       <button class="proyecto-modal-close" id="proyecto-modal-close" aria-label="Cerrar detalle de proyecto">×</button>
 
+
       <div class="proyecto-modal-media" id="proyecto-modal-media"></div>
+
       <div class="proyecto-modal-thumbs" id="proyecto-modal-thumbs"></div>
+      <div class="proyecto-modal-video" id="proyecto-modal-video"></div>
+      <div class="proyecto-modal-link" id="proyecto-modal-link"></div>
 
       <div class="proyecto-modal-body">
         <span class="proyecto-modal-cat" id="proyecto-modal-cat"></span>
@@ -2270,8 +2291,8 @@
       <span class="modal-icon" aria-hidden="true">✅</span>
       <h3 id="modal-title">¡Consulta recibida!</h3>
 
-      <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:0.5rem;">
-        Tu código de referencia es:
+      <p class="modal-label">
+        Tu código de reference es:
       </p>
       <div class="modal-code" id="modal-code" aria-live="polite">ENV-00000000-0000</div>
 
@@ -2543,7 +2564,30 @@
     videoClip:  null,
     placeholder: false,
     imagenPortada: '../05-Proyecto_Conquer_Web/assets/img/quienes_somos/Equipo_Conquer_Blocks_Crypto.png',
-    imagenes: ['05-Proyecto_Conquer_Web/assets/img/quienes_somos/Equipo_Conquer_Blocks_Crypto.png', '05-Proyecto_Conquer_Web/assets/img/quienes_somos/Equipo_Conquer_Blocks_Crypto.png',],
+    // [FIX 3 - GALERÍA DEL MODAL "PROYECTO WEB MAESTRIA FULL STACK"]
+    // Antes este arreglo tenía la MISMA imagen repetida dos veces
+    // ('Equipo_Conquer_Blocks_Crypto.png', 'Equipo_Conquer_Blocks_Crypto.png'),
+    // y además le faltaba el "../" al inicio de la ruta (a diferencia de
+    // "imagenPortada" que sí lo tiene). Como este archivo (index.html) vive
+    // dentro de la carpeta "01-landing-page", esa ruta sin "../" apuntaba
+    // a una carpeta inexistente ("01-landing-page/05-Proyecto_Conquer_Web/..."),
+    // así que aunque el FIX 1 ya dibuja el <img> correctamente, esa imagen
+    // igual habría salido rota por la ruta mal armada.
+    //
+    // Ahora se reemplaza por las 4 imágenes reales de la galería del
+    // proyecto Conquer Blocks, ubicadas en:
+    //   01-landing-page/assets/img/galeria_Conquer_Blocks/
+    // Como index.html YA está dentro de "01-landing-page", la ruta relativa
+    // correcta NO repite ese nombre de carpeta: solo "assets/img/...".
+    // NOTA: se asume que los nombres de archivo en el servidor son
+    // exactamente estos (case-sensitive). Si alguno no coincide, dime el
+    // nombre real y lo corrijo.
+    imagenes: [
+      'assets/img/galeria_Conquer_Blocks/curso-fullstack.png',
+      'assets/img/galeria_Conquer_Blocks/Curso_IA.png',
+      'assets/img/galeria_Conquer_Blocks/curso-blockchain.png',
+      'assets/img/galeria_Conquer_Blocks/curso-ciberseguridad.png'
+    ],
     enlace: 'https://conquerblocks.com/'
     },
     {
@@ -2714,9 +2758,42 @@ document.addEventListener('DOMContentLoaded', renderizarProyectos);
       }
 
       // Miniaturas (si hay galería)
-      if (proyecto.imagenes && proyecto.imagenes.length > 1) {
-        proyectoModalThumbs.innerHTML = proyecto.imagenes.map((img, i) =>
-          `<div class="proyecto-thumb${i === 0 ? ' active' : ''}" data-thumb-src="${img}">🖼</div>`
+      // [FIX 1 - POR QUÉ NO SE VEÍAN LAS MINIATURAS]
+      // Antes, esta línea generaba: `<div class="proyecto-thumb" data-thumb-src="${img}">🖼</div>`
+      // Es decir: la ruta real de la imagen (${img}) se guardaba en el atributo
+      // "data-thumb-src", pero ese atributo NUNCA se usaba para pintar nada.
+      // Dentro del div solo se mostraba el emoji "🖼" como simple texto.
+      // Por eso todas las miniaturas se veían igual (el mismo ícono) y nunca
+      // cargaban la imagen real del proyecto: faltaba la etiqueta <img>.
+      // Ahora sí se crea un <img src="${img}"> real dentro de cada miniatura.
+      //
+      // [FIX 4 - NO SE PODÍA VOLVER A LA IMAGEN PRINCIPAL POR DEFECTO]
+      // Antes, "proyecto.imagenes" (la galería de miniaturas) y
+      // "proyecto.imagenPortada" (la imagen grande que se muestra al abrir
+      // el modal) eran dos cosas totalmente separadas: la portada NUNCA
+      // aparecía como una miniatura clickeable. Resultado: en cuanto hacías
+      // clic en cualquier miniatura, la imagen principal cambiaba, pero no
+      // existía ninguna miniatura que representara "la de por defecto" para
+      // volver a ella — la única forma era cerrar el modal y abrirlo de nuevo.
+      //
+      // La corrección arma un solo arreglo "galeriaCompleta" que pone la
+      // portada PRIMERO (y la marca "active" por defecto, ya que es la que
+      // se ve al abrir el modal) y luego el resto de imágenes de la galería.
+      // Así, la portada se vuelve una miniatura más: el usuario puede hacer
+      // clic en ella en cualquier momento para regresar a la imagen original,
+      // sin cerrar el modal. Si la portada ya viniera repetida dentro de
+      // "imagenes" (mismo archivo), el .filter() de abajo evita mostrarla
+      // dos veces.
+      const galeriaCompleta = [
+        ...(proyecto.imagenPortada ? [proyecto.imagenPortada] : []),
+        ...(proyecto.imagenes || []).filter(img => img !== proyecto.imagenPortada)
+      ];
+
+      if (galeriaCompleta.length > 1) {
+        proyectoModalThumbs.innerHTML = galeriaCompleta.map((img, i) =>
+          `<div class="proyecto-thumb${i === 0 ? ' active' : ''}" data-thumb-src="${img}">
+             <img src="${img}" alt="Miniatura ${i + 1} de ${escapeHtmlProyecto(proyecto.titulo)}" />
+           </div>`
         ).join('');
         proyectoModalThumbs.style.display = 'flex';
       } else {
@@ -2736,6 +2813,40 @@ document.addEventListener('DOMContentLoaded', renderizarProyectos);
       proyectoModalOverlay.classList.remove('open');
       if (lastFocusedBeforeProyectoModal) lastFocusedBeforeProyectoModal.focus();
     }
+
+    // [FIX 2 - POR QUÉ EL CLIC NO HACÍA NADA]
+    // En todo el archivo original NO existía ningún "addEventListener" que
+    // escuchara clics sobre las miniaturas (.proyecto-thumb). Los divs se
+    // creaban en pantalla (arriba, en FIX 1), pero nadie los "escuchaba":
+    // el CSS ya tenía el estilo para el estado ":hover" y ".active"
+    // (por eso el cursor cambiaba a "pointer" y parecía clickeable),
+    // pero no había ni una línea de JavaScript conectando el clic con
+    // una acción real. Faltaba todo este bloque.
+    //
+    // Qué hace este bloque nuevo:
+    // 1. Escucha los clics dentro del contenedor de miniaturas
+    //    (delegación de eventos: un solo listener sirve para todas,
+    //    incluso las que se generan después dinámicamente).
+    // 2. Busca el div .proyecto-thumb más cercano al elemento clicado.
+    // 3. Lee la ruta guardada en "data-thumb-src" (ese dato ya existía,
+    //    pero antes no se usaba para nada).
+    // 4. Reemplaza la imagen grande del modal (#proyecto-modal-media)
+    //    por la miniatura seleccionada.
+    // 5. Quita la clase "active" de todas las miniaturas y se la pone
+    //    solo a la que se clickeó, para marcar visualmente cuál está
+    //    seleccionada.
+    proyectoModalThumbs.addEventListener('click', (e) => {
+      const thumb = e.target.closest('.proyecto-thumb');
+      if (!thumb) return;
+
+      const src = thumb.getAttribute('data-thumb-src');
+      if (!src) return;
+
+      proyectoModalMedia.innerHTML = `<img src="${src}" alt="" />`;
+
+      proyectoModalThumbs.querySelectorAll('.proyecto-thumb').forEach(t => t.classList.remove('active'));
+      thumb.classList.add('active');
+    });
 
     proyectoModalClose.addEventListener('click', closeProyectoModal);
     proyectoModalOverlay.addEventListener('click', (e) => {
