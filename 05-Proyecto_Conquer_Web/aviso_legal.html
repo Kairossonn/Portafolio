@@ -25,6 +25,19 @@
 
 <body>
 
+  <!-- ...existing code... -->
+  <script>
+    //Este código garantiza que el color del tema se configure correctamente incluso en navegadores que no admiten la etiqueta meta. 
+    // El fragmento de JavaScript comprueba si la propiedad themeColor está disponible en document.documentElement. 
+    // Si no lo está, establece la variable CSS --theme-color con el color de tema deseado.
+    // Check if the browser supports theme-color meta tag
+    if (!('themeColor' in document.documentElement)) {
+      // Set theme color dynamically for unsupported browsers
+      document.documentElement.style.setProperty('--theme-color', '#fafafa');
+    }
+  </script>
+
+
   <header>
       <figure>
           <picture>
