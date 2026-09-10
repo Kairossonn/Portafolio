@@ -803,9 +803,40 @@
       display: flex; align-items: center; justify-content: center;
       border-radius: var(--radius-lg) var(--radius-lg) 0 0;
       overflow: hidden;
+      /* [FIX 6] "position: relative" para poder anclar las flechas
+         (position: absolute) encima de la imagen, sin que se muevan
+         cuando la imagen cambia. */
+      position: relative;
     }
     .proyecto-modal-media img, .proyecto-modal-media video { width: 100%; height: 100%; object-fit: cover; }
     .proyecto-modal-media .proyecto-media-icon { font-size: 3.5rem; }
+
+    /* [FIX 6 - FLECHAS DE NAVEGACIÓN SOBRE LA IMAGEN PRINCIPAL]
+       Botones tipo visor de imágenes (◀ ▶) que van y vienen entre las
+       imágenes de "galeriaCompleta" sin necesidad de tocar las miniaturas
+       (y por lo tanto, sin disparar ningún enlace del FIX 5). Se ocultan
+       automáticamente por JS cuando el proyecto tiene 1 sola imagen o
+       ninguna (ver "actualizarVisibilidadFlechas" en el JS). */
+    .proyecto-modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition), opacity var(--transition);
+      z-index: 2;
+    }
+    .proyecto-modal-nav:hover { background: rgba(0,0,0,0.7); }
+    .proyecto-modal-nav.prev { left: 0.6rem; }
+    .proyecto-modal-nav.next { right: 0.6rem; }
+    .proyecto-modal-nav[hidden] { display: none; }
 
     .proyecto-modal-thumbs { display: flex; gap: 0.5rem; padding: var(--space-sm) var(--space-md) 0; overflow-x: auto; }
     .proyecto-thumb {
@@ -819,6 +850,9 @@
       /* [FIX 1] Se agregó "overflow: hidden" para que la <img> que ahora
          se inserta dentro de cada miniatura no se salga del cuadro de 56x56. */
       overflow: hidden;
+      /* [FIX 5] "position: relative" para poder posicionar el iconito de
+         enlace externo (::after) en la esquina de la miniatura. */
+      position: relative;
       transition: opacity var(--transition), border-color var(--transition);
     }
     /* [FIX 1] Regla nueva: antes el div de la miniatura solo mostraba el
@@ -828,6 +862,25 @@
        ahora sí se genera, para que llene el cuadro y no se distorsione. */
     .proyecto-thumb img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
     .proyecto-thumb.active, .proyecto-thumb:hover { opacity: 1; border-color: var(--accent); }
+
+    /* [FIX 5 - ENLACES EN MINIATURAS]
+       Cuando una miniatura tiene un enlace propio (data-thumb-href), le
+       agregamos un pequeño ícono "↗" en la esquina para que el usuario
+       sepa, antes de hacer clic, que esa imagen lo llevará a otra página
+       (y no solo va a cambiar la foto grande). Es un indicador visual,
+       no afecta la lógica de clic (esa vive en el JS). */
+    .proyecto-thumb.has-link::after {
+      content: '↗';
+      position: absolute;
+      top: 2px; right: 3px;
+      font-size: 0.65rem;
+      line-height: 1;
+      color: #fff;
+      background: rgba(0,0,0,0.55);
+      border-radius: 3px;
+      padding: 1px 2px;
+      pointer-events: none;
+    }
 
     .proyecto-modal-body { padding: var(--space-lg); }
     .proyecto-modal-cat {
@@ -1657,6 +1710,8 @@
   </section>
 
   
+
+
   <!-- =========================================================
        TESTIMONIOS / RECOMENDACIONES
   ========================================================= -->
@@ -2258,7 +2313,16 @@
       <button class="proyecto-modal-close" id="proyecto-modal-close" aria-label="Cerrar detalle de proyecto">×</button>
 
 
-      <div class="proyecto-modal-media" id="proyecto-modal-media"></div>
+      <!-- [FIX 6] "proyecto-modal-media" ahora es un contenedor fijo que
+           NUNCA se borra. Adentro va "proyecto-modal-media-content" (aquí
+           es donde el JS sigue metiendo el <img>/<video>, igual que antes)
+           y las dos flechas de navegación, que quedan siempre visibles
+           encima de la imagen sin importar cuántas veces esta cambie. -->
+      <div class="proyecto-modal-media" id="proyecto-modal-media">
+        <div id="proyecto-modal-media-content"></div>
+        <button type="button" class="proyecto-modal-nav prev" id="proyecto-modal-nav-prev" aria-label="Imagen anterior" hidden>‹</button>
+        <button type="button" class="proyecto-modal-nav next" id="proyecto-modal-nav-next" aria-label="Imagen siguiente" hidden>›</button>
+      </div>
 
       <div class="proyecto-modal-thumbs" id="proyecto-modal-thumbs"></div>
       <div class="proyecto-modal-video" id="proyecto-modal-video"></div>
@@ -2274,7 +2338,7 @@
   </div>
 
   <!-- =========================================================
-       MODAL DE CONFIRMACIÓN DE CONSULTA ENVIADA Y CODIGO DE REFERENCIA CLIENTE
+       MODAL DE CONFIRMACIÓN
   ========================================================= -->
   <div
     class="modal-overlay"
@@ -2545,8 +2609,7 @@
       }
     });
   
-    /*------------------------------------------------------------- Galerias de proyectos Renderización de datos ---------------------------------------------------------- */ 
-    
+
     /* -------------------------------------------------------
     PROYECTOS — datos y render
     Para agregar un proyecto real: cambiar placeholder a false
@@ -2581,14 +2644,22 @@
     // NOTA: se asume que los nombres de archivo en el servidor son
     // exactamente estos (case-sensitive). Si alguno no coincide, dime el
     // nombre real y lo corrijo.
+    // [FIX 5 - ENLACE POR IMAGEN]
+    // Cada imagen puede ser un string simple (sin enlace) o un objeto
+    // { src, href } si quieres que al hacer clic lleve a una página
+    // específica (se abre en pestaña nueva, ver el listener de clic).
+    // TODO: reemplaza cada "href" de abajo por la página real del HTML
+    // que corresponda a ese curso dentro de "05-Proyecto_Conquer_Web".
+    // Si por ahora no quieres que alguna lleve a ningún lado, borra su
+    // "href" o deja el elemento como string simple, por ejemplo:
+    // 'assets/img/galeria_Conquer_Blocks/curso-fullstack.png'
     imagenes: [
-      'assets/img/galeria_Conquer_Blocks/curso-fullstack.png',
-      'assets/img/galeria_Conquer_Blocks/Curso_IA.png',
-      'assets/img/galeria_Conquer_Blocks/curso-blockchain.png',
-      'assets/img/galeria_Conquer_Blocks/curso-ciberseguridad.png'
+      { src: 'assets/img/galeria_Conquer_Blocks/curso-fullstack.png', href: '../05-Proyecto_Conquer_Web/cursos/curso-fullstack.html'},
+      { src: 'assets/img/galeria_Conquer_Blocks/Curso_IA.png', href: '../05-Proyecto_Conquer_Web/cursos/curso-ia.html'},
+      { src: 'assets/img/galeria_Conquer_Blocks/curso-blockchain.png', href: '../05-Proyecto_Conquer_Web/cursos/curso-Blockchain.html'},
+      { src: 'assets/img/galeria_Conquer_Blocks/curso-ciberseguridad.png', href: '../05-Proyecto_Conquer_Web/cursos/curso-ciberseguridad.html'}
     ],
-    enlaces: 'https://conquerblocks.com/'
-
+    enlace: 'https://conquerblocks.com/'
     },
     {
     id: 'proyecto-02',
@@ -2731,7 +2802,19 @@ document.addEventListener('DOMContentLoaded', renderizarProyectos);
     ------------------------------------------------------- */
     const proyectoModalOverlay = document.getElementById('proyecto-modal-overlay');
     const proyectoModalClose   = document.getElementById('proyecto-modal-close');
-    const proyectoModalMedia   = document.getElementById('proyecto-modal-media');
+    // [FIX 6] Nota: ya no se usa un div "proyecto-modal-media" para escribir
+    // contenido directamente (ver "proyectoModalMediaContent" abajo); ese
+    // div ahora es solo el contenedor fijo que envuelve la imagen y las
+    // flechas, así que no necesita su propia referencia en JS.
+    // [FIX 6] Nueva referencia: antes el JS escribía directamente sobre
+    // "proyecto-modal-media" (borrando todo su contenido cada vez que la
+    // imagen cambiaba). Ahora escribe sobre este div interno
+    // "proyecto-modal-media-content", para que las flechas de navegación
+    // (que viven como hermanas de este div, fijas en el HTML) nunca se
+    // borren accidentalmente.
+    const proyectoModalMediaContent = document.getElementById('proyecto-modal-media-content');
+    const proyectoModalNavPrev = document.getElementById('proyecto-modal-nav-prev');
+    const proyectoModalNavNext = document.getElementById('proyecto-modal-nav-next');
     const proyectoModalThumbs  = document.getElementById('proyecto-modal-thumbs');
     const proyectoModalCat     = document.getElementById('proyecto-modal-cat');
     const proyectoModalTitle   = document.getElementById('proyecto-modal-title');
@@ -2739,6 +2822,14 @@ document.addEventListener('DOMContentLoaded', renderizarProyectos);
     const proyectoModalTech    = document.getElementById('proyecto-modal-tech');
 
     let lastFocusedBeforeProyectoModal = null;
+
+    // [FIX 6] Estas dos variables guardan, mientras el modal está abierto,
+    // cuál es la galería completa del proyecto actual (imagen de portada +
+    // imágenes) y en qué posición de esa galería está el usuario ahora
+    // mismo. Las usan tanto el clic en una miniatura como las flechas
+    // nuevas, para que ambas formas de navegar se mantengan sincronizadas.
+    let galeriaActualDelModal = [];
+    let indiceActualDelModal = 0;
 
     function openProyectoModal(proyecto) {
       lastFocusedBeforeProyectoModal = document.activeElement;
@@ -2749,13 +2840,14 @@ document.addEventListener('DOMContentLoaded', renderizarProyectos);
 
       // Media principal
       if (proyecto.videoClip) {
-        proyectoModalMedia.innerHTML = `<video src="${proyecto.videoClip}" controls playsinline></video>`;
+        proyectoModalMediaContent.innerHTML = `<video src="${proyecto.videoClip}" controls playsinline></video>`;
       } else if (proyecto.imagenPortada) {
-        proyectoModalMedia.innerHTML = `<img src="${proyecto.imagenPortada}" alt="${escapeHtmlProyecto(proyecto.titulo)}" />`;
+        proyectoModalMediaContent.innerHTML = `<img src="${proyecto.imagenPortada}" alt="${escapeHtmlProyecto(proyecto.titulo)}" />`;
       } else {
         const icon = proyecto.categoria === 'web' ? '🌐' : proyecto.categoria === 'consultoria' ? '🧠' : '⚙️';
-        proyectoModalMedia.innerHTML = `<span class="proyecto-media-icon" aria-hidden="true">${icon}</span>`;
+        proyectoModalMediaContent.innerHTML = `<span class="proyecto-media-icon" aria-hidden="true">${icon}</span>`;
       }
+
 
       // Miniaturas (si hay galería)
       // [FIX 1 - POR QUÉ NO SE VEÍAN LAS MINIATURAS]
@@ -2767,6 +2859,22 @@ document.addEventListener('DOMContentLoaded', renderizarProyectos);
       // cargaban la imagen real del proyecto: faltaba la etiqueta <img>.
       // Ahora sí se crea un <img src="${img}"> real dentro de cada miniatura.
       //
+      // [FIX 5 - CADA MINIATURA PUEDE LLEVAR A UN ENLACE PROPIO]
+      // Antes, "proyecto.imagenes" solo aceptaba strings simples (la ruta de
+      // la imagen) y no había forma de asociarle un destino. Ahora cada
+      // elemento de "imagenes" puede ser:
+      //   - un string:            'assets/img/galeria_x/foto.png'          (sin enlace, solo cambia la imagen grande)
+      //   - un objeto:            { src: 'assets/img/galeria_x/foto.png', href: 'https://...' }  (con enlace propio)
+      // Esta función normaliza ambos formatos a { src, href } para que el
+      // resto del código no tenga que preocuparse por cuál se usó. Es la
+      // MISMA función que usan los modales de Consultoría y SaaS (comparten
+      // "openProyectoModal"), así que apenas les agregues imágenes con
+      // enlace a esos proyectos, funcionará igual sin tocar código de nuevo.
+      function normalizarImagenGaleria(entrada) {
+        if (typeof entrada === 'string') return { src: entrada, href: null };
+        return { src: entrada.src, href: entrada.href || null };
+      }
+
       // [FIX 4 - NO SE PODÍA VOLVER A LA IMAGEN PRINCIPAL POR DEFECTO]
       // Antes, "proyecto.imagenes" (la galería de miniaturas) y
       // "proyecto.imagenPortada" (la imagen grande que se muestra al abrir
@@ -2778,21 +2886,23 @@ document.addEventListener('DOMContentLoaded', renderizarProyectos);
       //
       // La corrección arma un solo arreglo "galeriaCompleta" que pone la
       // portada PRIMERO (y la marca "active" por defecto, ya que es la que
-      // se ve al abrir el modal) y luego el resto de imágenes de la galería.
-      // Así, la portada se vuelve una miniatura más: el usuario puede hacer
-      // clic en ella en cualquier momento para regresar a la imagen original,
-      // sin cerrar el modal. Si la portada ya viniera repetida dentro de
-      // "imagenes" (mismo archivo), el .filter() de abajo evita mostrarla
-      // dos veces.
+      // se ve al abrir el modal, y SIN enlace propio, para que siempre sirva
+      // como botón de "regresar a la vista original") y luego el resto de
+      // imágenes de la galería ya normalizadas. Si la portada ya viniera
+      // repetida dentro de "imagenes" (mismo archivo), el .filter() evita
+      // mostrarla dos veces.
       const galeriaCompleta = [
-        ...(proyecto.imagenPortada ? [proyecto.imagenPortada] : []),
-        ...(proyecto.imagenes || []).filter(img => img !== proyecto.imagenPortada)
+        ...(proyecto.imagenPortada ? [{ src: proyecto.imagenPortada, href: null }] : []),
+        ...(proyecto.imagenes || [])
+          .map(normalizarImagenGaleria)
+          .filter(item => item.src !== proyecto.imagenPortada)
       ];
 
       if (galeriaCompleta.length > 1) {
-        proyectoModalThumbs.innerHTML = galeriaCompleta.map((img, i) =>
-          `<div class="proyecto-thumb${i === 0 ? ' active' : ''}" data-thumb-src="${img}">
-             <img src="${img}" alt="Miniatura ${i + 1} de ${escapeHtmlProyecto(proyecto.titulo)}" />
+        proyectoModalThumbs.innerHTML = galeriaCompleta.map((item, i) =>
+          `<div class="proyecto-thumb${i === 0 ? ' active' : ''}${item.href ? ' has-link' : ''}"
+                data-thumb-src="${item.src}"${item.href ? ` data-thumb-href="${item.href}"` : ''}>
+             <img src="${item.src}" alt="Miniatura ${i + 1} de ${escapeHtmlProyecto(proyecto.titulo)}" />
            </div>`
         ).join('');
         proyectoModalThumbs.style.display = 'flex';
@@ -2801,6 +2911,17 @@ document.addEventListener('DOMContentLoaded', renderizarProyectos);
         proyectoModalThumbs.style.display = 'none';
       }
 
+      // [FIX 6 - FLECHAS DE NAVEGACIÓN]
+      // Guardamos la galería completa y arrancamos en la posición 0
+      // (la portada) cada vez que se abre el modal. "mostrarFlechasNav"
+      // las oculta por completo si hay 1 sola imagen o ninguna, porque no
+      // tendría sentido navegar entre una sola imagen.
+      galeriaActualDelModal = galeriaCompleta;
+      indiceActualDelModal = 0;
+      const hayGaleriaParaNavegar = galeriaCompleta.length > 1;
+      proyectoModalNavPrev.hidden = !hayGaleriaParaNavegar;
+      proyectoModalNavNext.hidden = !hayGaleriaParaNavegar;
+
       // Tecnologías
       proyectoModalTech.innerHTML = (proyecto.tecnologias || [])
         .map(t => `<span class="tag">${escapeHtmlProyecto(t)}</span>`).join('');
@@ -2808,6 +2929,45 @@ document.addEventListener('DOMContentLoaded', renderizarProyectos);
       proyectoModalOverlay.classList.add('open');
       proyectoModalClose.focus();
     }
+
+    // [FIX 6 - FUNCIÓN COMPARTIDA POR LAS FLECHAS Y LAS MINIATURAS]
+    // Cambia la imagen grande a la posición "indice" dentro de la galería
+    // actual, y marca esa misma miniatura como activa. A diferencia del
+    // clic en una miniatura (FIX 5), esta función NUNCA abre un enlace,
+    // aunque esa imagen tenga uno asignado: las flechas son solo para
+    // "pasear" por la galería, no para navegar a otra página.
+    function mostrarImagenDelModalPorIndice(indice) {
+      if (!galeriaActualDelModal.length) return;
+
+      // % (módulo) hace que la navegación sea circular: si estás en la
+      // última imagen y das "siguiente", regresa a la primera, y viceversa
+      // con "anterior" desde la primera — igual que los visores de fotos.
+      const total = galeriaActualDelModal.length;
+      indiceActualDelModal = (indice + total) % total;
+
+      const item = galeriaActualDelModal[indiceActualDelModal];
+      proyectoModalMediaContent.innerHTML = `<img src="${item.src}" alt="" />`;
+
+      const thumbs = proyectoModalThumbs.querySelectorAll('.proyecto-thumb');
+      thumbs.forEach((t, i) => t.classList.toggle('active', i === indiceActualDelModal));
+    }
+
+    proyectoModalNavPrev.addEventListener('click', () => {
+      mostrarImagenDelModalPorIndice(indiceActualDelModal - 1);
+    });
+    proyectoModalNavNext.addEventListener('click', () => {
+      mostrarImagenDelModalPorIndice(indiceActualDelModal + 1);
+    });
+
+    // [FIX 6] Soporte de teclado: flechas ← → del teclado, igual que en
+    // los visores de imágenes de los navegadores. Solo responde si el
+    // modal de proyecto está abierto, para no interferir con otras partes
+    // de la página.
+    document.addEventListener('keydown', (e) => {
+      if (!proyectoModalOverlay.classList.contains('open')) return;
+      if (e.key === 'ArrowLeft') mostrarImagenDelModalPorIndice(indiceActualDelModal - 1);
+      if (e.key === 'ArrowRight') mostrarImagenDelModalPorIndice(indiceActualDelModal + 1);
+    });
 
     function closeProyectoModal() {
       proyectoModalOverlay.classList.remove('open');
@@ -2835,6 +2995,20 @@ document.addEventListener('DOMContentLoaded', renderizarProyectos);
     // 5. Quita la clase "active" de todas las miniaturas y se la pone
     //    solo a la que se clickeó, para marcar visualmente cuál está
     //    seleccionada.
+    //
+    // [FIX 5] Si la miniatura clickeada tiene "data-thumb-href" (ver
+    // normalizarImagenGaleria más arriba), además de cambiar la imagen
+    // grande, se abre ese enlace en una PESTAÑA NUEVA
+    // ("_blank" + "noopener,noreferrer" por seguridad: evita que la página
+    // nueva pueda controlar esta pestaña). Se eligió pestaña nueva y no la
+    // misma, para que el modal se quede abierto de fondo y el visitante no
+    // pierda su lugar en el portafolio. Si la miniatura NO tiene enlace
+    // (como la de "volver a la imagen principal"), esta parte simplemente
+    // no se ejecuta y el clic solo cambia la imagen grande, como antes.
+    // [FIX 6] Este listener ahora también actualiza "indiceActualDelModal"
+    // (usando la posición del thumb dentro de la lista, vía Array.from +
+    // indexOf), para que si el usuario hace clic en una miniatura y luego
+    // usa las flechas, la navegación continúe desde ahí y no se desordene.
     proyectoModalThumbs.addEventListener('click', (e) => {
       const thumb = e.target.closest('.proyecto-thumb');
       if (!thumb) return;
@@ -2842,10 +3016,17 @@ document.addEventListener('DOMContentLoaded', renderizarProyectos);
       const src = thumb.getAttribute('data-thumb-src');
       if (!src) return;
 
-      proyectoModalMedia.innerHTML = `<img src="${src}" alt="" />`;
+      proyectoModalMediaContent.innerHTML = `<img src="${src}" alt="" />`;
 
-      proyectoModalThumbs.querySelectorAll('.proyecto-thumb').forEach(t => t.classList.remove('active'));
+      const todosLosThumbs = Array.from(proyectoModalThumbs.querySelectorAll('.proyecto-thumb'));
+      todosLosThumbs.forEach(t => t.classList.remove('active'));
       thumb.classList.add('active');
+      indiceActualDelModal = todosLosThumbs.indexOf(thumb);
+
+      const href = thumb.getAttribute('data-thumb-href');
+      if (href) {
+        window.open(href, '_blank', 'noopener,noreferrer');
+      }
     });
 
     proyectoModalClose.addEventListener('click', closeProyectoModal);
