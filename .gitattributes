@@ -1,2 +1,2 @@
-02-DashBoard_Modelos_IA_Antigravity/*.zip filter=lfs diff=lfs merge=lfs -text
+02-DashBoard_Modelos_IA_Antigravity/*.exe filter=lfs diff=lfs merge=lfs -text
 02-DashBoard_Modelos_IA_Antigravity/DashboardInstaller.exe filter=lfs diff=lfs merge=lfs -text
