@@ -57,8 +57,7 @@
         <picture>
           <!-- Etiqueta Completa de red Spcial Instagram-->
           <!-- href="https://www.instagram.com/envtech/"> Esta linea sustituye la Página en construcción -->
-          <a href="https://www.under_construction.html" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Envtech" title="Visitar página de Instagram" lazy="loading">
-            <source media="(min-width: 260px) and (max-width: 1200px)" srcset="https://img.shields.io/badge/Instagram-Visitar%20Perfil-E4405F?style=for-the badge&logo=instagram&logoColor=white"> 
+          <a href="https://kairossonn.github.io/Portafolio/under_construction.html" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Envtech" title="Visitar página de Instagram">
           <img src="https://img.shields.io/badge/Instagram-Visitar%20Perfil-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Visitar perfil de Instagram" width="180px" height="20px">
           </a>
           <!-- Etiqueta Completa de red Spcial Discord--> 
@@ -83,8 +82,7 @@
       </a>
       <!-- Etiqueta Completa de red Social Facebook-->
       <!-- href="https://www.facebook.com/envtech/"> Esta linea sustituye la Página en construcción -->
-      <a href="https://www.under_construction.html" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Envtech" title="Visitar página de Facebook" lazy="loading">
-        <source media="(min-width: 260px) and (max-width: 1200px)" srcset="https://img.shields.io/badge/Facebook-Visitar%20Perfil-1877F2?style=for-the-badge&logo=facebook&logoColor=white">
+      <a href="https://kairossonn.github.io/Portafolio/under_construction.html" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Envtech" title="Visitar página de Facebook">
       <img src="https://img.shields.io/badge/Facebook-Visitar%20Perfil-1877F2?style=for-the-badge&logo=facebook&logoColor=white" alt="Visitar perfil de Facebook" width="180px" height="20px">
       </a>
       </picture>
