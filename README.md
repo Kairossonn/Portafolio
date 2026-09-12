@@ -15,7 +15,9 @@
   &nbsp;&nbsp;&nbsp;
   <img src="https://i.giphy.com/media/eNAsjO55tPbgaor7ma/200w.webp" width="60" style="max-width:100%;"/>
   &nbsp;&nbsp;&nbsp;
-  <img src="https://skillicons.dev/icons?i=mysql" width="60" style="max-width:100%;"/>
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZmxuZW5ybWYybTlnODFqcGJiamM4cWJzeng4YWJlcjl5aWh4YjQ5cCZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/VgGthkhUvGgOit7Y9i/giphy.gif" width="60" style="max-width:100%;"/>
+  &nbsp;&nbsp;&nbsp;
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZmxuZW5ybWYybTlnODFqcGJiamM4cWJzeng4YWJlcjl5aWh4YjQ5cCZlcD12MV9zdGlja2Vyc19zZWFyY2gmY3Q9cw/kdFc8fubgS31b8DsVu/giphy.gif" width="60" style="max-width:100%;"/>
 </p>
 
 <img src="https://readme-typing-svg.herokuapp.com?font=Time+New+Roman&color=cyan&size=25&left=true&vleft=true&width=800&height=35&lines=Hi!+I'm+Victor+Miletic..;Victor+Miletic+is+a+Information+Systems+Engineering..;Full-Stack+Student+at+ConquerBlocks;Full-Stack+Developer+..;A+passionate+aspiring+Full-Stack+developer;Aspiring+Information+Security+Systems+Expert..;Self+taught+Arduino..;Croatian+English+and+others+language+student..;Active+Learner+and+Researcher..;A+technology+blockchain+and+Cripto+enthusiast..;Love+to+learn+new+stuffs." style="max-width:100%; height:auto;" alt="Victor Miletic - Full Stack Developer"/>
