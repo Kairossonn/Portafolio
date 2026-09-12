@@ -41,8 +41,6 @@
 - 😄 **Pronouns:** Viktore — "ConquerBlocks"
 <br/>
 
-## Proyectos:
-
 <br />
 
 <center>
