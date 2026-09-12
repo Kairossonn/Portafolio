@@ -318,7 +318,7 @@ generated/
 # BUILD / DISTRIBUTION FILES
 #############################################
 
-*.exe
+#*.exe
 *.spec
 
 #*.zip
