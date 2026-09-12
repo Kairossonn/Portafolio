@@ -89,7 +89,6 @@
         </a>
       </picture>
     </figure>
-    <br />
 </p>
 <br />
 
