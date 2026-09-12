@@ -53,14 +53,14 @@
   </figure>
   <br />
   <br />
-     <p align="justify">
-      <a href="https://kairossonn.github.io/Portafolio/under_construction.html" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Envtech" title="Visitar página de Instagram"><img src="https://img.shields.io/badge/Instagram-Visitar%20Perfil-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Visitar perfil de Instagram" width="180px" height="20px"></a>
-      <a href="https://discord.com/users/1188712701015363649" target="_blank" rel="noopener noreferrer" aria-label="Discord de Envtech" title="Contactar por Discord"><img src="https://img.shields.io/badge/Discord-Contactar-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Contactar por Discord" width="180px" height="20px"></a>
-      <a href="https://linkedin.com/in/v%C3%ADctor-miletic-89656049" target="_blank" rel="noopener noreferrer" aria-label="Perfil de LinkedIn de Envtech" title="Contactar por LinkedIn"><img src="https://img.shields.io/badge/LinkedIn-Perfil-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="Contactar por LinkedIn" width="150px" height="20px"></a>
-      <a href="https://t.me/viktorostermann" target="_blank" rel="noopener noreferrer" aria-label="Telegram de Envtech" title="Contactar por Telegram"><img src="https://img.shields.io/badge/Telegram-Escribir-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" alt="Contactar por Telegram" width="150px" height="20px"></a>
-      <a href="mailto:viktoremiletic@gmail.com" aria-label="Gmail de Envtech" title="Enviar correo por Gmail"><img src="https://img.shields.io/badge/Gmail-Enviar%20Correo-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Contactar por Gmail" width="180px" height="20px"></a>
-      <a href="https://kairossonn.github.io/Portafolio/under_construction.html" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Envtech" title="Visitar página de Facebook"><img src="https://img.shields.io/badge/Facebook-Visitar%20Perfil-1877F2?style=for-the-badge&logo=facebook&logoColor=white" alt="Visitar perfil de Facebook" width="180px" height="20px"></a>
-      </p>
+<p align="center">
+  <a href="https://kairossonn.github.io/Portafolio/under_construction.html" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Envtech" title="Visitar página de Instagram"><img src="https://img.shields.io/badge/Instagram-Visitar%20Perfil-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Visitar perfil de Instagram" width="130px" height="20px"></a>
+  <a href="https://discord.com/users/1188712701015363649" target="_blank" rel="noopener noreferrer" aria-label="Discord de Envtech" title="Contactar por Discord"><img src="https://img.shields.io/badge/Discord-Contactar-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Contactar por Discord" width="130px" height="20px"></a>
+  <a href="https://linkedin.com/in/v%C3%ADctor-miletic-89656049" target="_blank" rel="noopener noreferrer" aria-label="Perfil de LinkedIn de Envtech" title="Contactar por LinkedIn"><img src="https://img.shields.io/badge/LinkedIn-Perfil-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="Contactar por LinkedIn" width="130px" height="20px"></a>
+  <a href="https://t.me/viktorostermann" target="_blank" rel="noopener noreferrer" aria-label="Telegram de Envtech" title="Contactar por Telegram"><img src="https://img.shields.io/badge/Telegram-Escribir-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" alt="Contactar por Telegram" width="130px" height="20px"></a>
+  <a href="mailto:viktoremiletic@gmail.com" aria-label="Gmail de Envtech" title="Enviar correo por Gmail"><img src="https://img.shields.io/badge/Gmail-Enviar%20Correo-D14836?style=for-the-badge&logo=gmail&logoColor=white" alt="Contactar por Gmail" width="130px" height="20px"></a>
+  <a href="https://kairossonn.github.io/Portafolio/under_construction.html" target="_blank" rel="noopener noreferrer" aria-label="Facebook de Envtech" title="Visitar página de Facebook"><img src="https://img.shields.io/badge/Facebook-Visitar%20Perfil-1877F2?style=for-the-badge&logo=facebook&logoColor=white" alt="Visitar perfil de Facebook" width="130px" height="20px"></a>
+</p>
   <br />
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" style="max-width:100%;" alt="Portfolio divider"/>
