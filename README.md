@@ -36,10 +36,10 @@
   - Spanish (native)
   - English (B2)
   - Croatian (B1)
-  <br/>
+  <br />
 
 - 😄 **Pronouns:** Viktore — "ConquerBlocks"
-<br/>
+<br />
 
 <br />
 
@@ -52,6 +52,7 @@
     </picture>
   </figure>
   <br />
+  <br />
 
 <p align="left">
   <a href="https://discord.com/users/1188712701015363649"><img src="https://img.shields.io/badge/Discord-Contactar-5865F2?style=for-the-badge&logo=discord&logoColor=white" style="max-width:100%;"/></a>
@@ -60,6 +61,6 @@
   <a href="https://t.me/viktorostermann"><img src="https://img.shields.io/badge/Telegram-Escribir-26A5E4?style=for-the-badge&logo=telegram&logoColor=white" style="max-width:100%;"/></a>
 </p>
 </center>
-<br/>
+<br />
 
 <img src="https://user-images.githubusercontent.com/73097560/115834477-dbab4500-a447-11eb-908a-139a6edaec5c.gif" width="100%" style="max-width:100%;" alt="Portfolio divider"/>
