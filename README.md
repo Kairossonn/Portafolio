@@ -1,8 +1,8 @@
 # Hi, I'm Victor Miletic.!
 
 <p align="center">
-  <img src="https://i.giphy.com/media/LMt9638dO8dftAjtco/200.webp" width="60" style="max-width:100%;"/>
-  <img src="https://i.giphy.com/media/IdyAQJVN2kVPNUrojM/200.webp" width="60" style="max-width:100%;"/>
+  <img src="https://i.giphy.com/media/LMt9638dO8dftAjtco/200.webp" width="60" style="max-width:100%;"/><br/>
+  <img src="https://i.giphy.com/media/IdyAQJVN2kVPNUrojM/200.webp" width="60" style="max-width:100%;"/><br/>
   <img src="https://i.giphy.com/media/KzJkzjggfGN5Py6nkT/200.webp" width="60" style="max-width:100%;"/>
   <img src="https://github.com/user-attachments/assets/38e65335-3889-45c2-a3ea-7920a1802e90" width="60" style="max-width:100%;"/>
   <img src="https://github.com/user-attachments/assets/6e037743-3a82-4c84-a9f8-ac523fc5bbb9" width="60" style="max-width:100%;"/>
