@@ -47,7 +47,8 @@
 ## 📬 Contacto 
   <figure>
     <picture>
-      <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="30" style="max-width:100%;" align="center">
+      <source srcset="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" type="image/gif">
+      <img src="https://media.giphy.com/media/hvRJCLFzcasrR4ia7z/giphy.gif" width="30" style="max-width:100%;" align="justify">
     </picture>
   </figure>
   <br />
