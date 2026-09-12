@@ -53,7 +53,7 @@
   </figure>
   <br />
   <br />
-     <p align="center">
+     <p align="justify">
       <a href="https://kairossonn.github.io/Portafolio/under_construction.html" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Envtech" title="Visitar página de Instagram"><img src="https://img.shields.io/badge/Instagram-Visitar%20Perfil-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Visitar perfil de Instagram" width="180px" height="20px"></a>
       <a href="https://discord.com/users/1188712701015363649" target="_blank" rel="noopener noreferrer" aria-label="Discord de Envtech" title="Contactar por Discord"><img src="https://img.shields.io/badge/Discord-Contactar-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Contactar por Discord" width="180px" height="20px"></a>
       <a href="https://linkedin.com/in/v%C3%ADctor-miletic-89656049" target="_blank" rel="noopener noreferrer" aria-label="Perfil de LinkedIn de Envtech" title="Contactar por LinkedIn"><img src="https://img.shields.io/badge/LinkedIn-Perfil-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="Contactar por LinkedIn" width="150px" height="20px"></a>
