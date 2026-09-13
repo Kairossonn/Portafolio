@@ -22,7 +22,7 @@
 
 <img src="https://readme-typing-svg.herokuapp.com?font=Time+New+Roman&color=cyan&size=25&left=true&vleft=true&width=800&height=35&lines=Hi!+I'm+Victor+Miletic..;Victor+Miletic+is+a+Information+Systems+Engineering..;Full-Stack+Student+at+ConquerBlocks;Full-Stack+Developer+..;A+passionate+aspiring+Full-Stack+developer;Aspiring+Information+Security+Systems+Expert..;Self+taught+Arduino..;Croatian+English+and+others+language+student..;Active+Learner+and+Researcher..;A+technology+blockchain+and+Cripto+enthusiast..;Love+to+learn+new+stuffs." style="max-width:100%; height:auto;" alt="Victor Miletic - Full Stack Developer"/>
 
-- 🌱 **Ing. Informatica. Actualmente cursando:** FullStack Master of Software Development  
+- 🌱 **Ing. Informatica. Actualmente cursando:** FullStack Web Software Development at "ConquerBlocks"   
   ➤ [ConquerX](https://www.conquerx.com)
 <br/>
 
@@ -48,7 +48,7 @@
   - Croatian (B1)
   <br />
 
-- 😄 **Pronouns:** Viktore — "ConquerBlocks"
+- 😄 **Pronouns:** Kairossonn
 <br />
 
 <br />
