@@ -184,6 +184,7 @@ salidas/
 converted/
 rendered/
 02-DashBoard_Modelos_IA_Antigravity/AIModelsDashboard-Portable/
+backend/
 
 #############################################
 # MACHINE LEARNING / AI MODELS
@@ -237,7 +238,7 @@ downloads/
 docker-compose.override.yml
 
 *.pid
-
+*.yml
 
 #############################################
 # CELERY / BACKGROUND JOBS
@@ -356,3 +357,11 @@ backups/
 *.old
 
 Versiones/
+
+#############################################
+# Deploys
+#############################################
+
+*.ps1
+
+#*.gitignore
